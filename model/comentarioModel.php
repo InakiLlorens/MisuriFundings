@@ -38,7 +38,7 @@ class comentarioModel extends comentarioClass {
             $comentario->setId($row['id']);
             $comentario->setComentario($row['comentario']);
             $comentario->setIdUsuario($row['idUsuario']);
-	          $comentario->setIdFunding($row['idFunding']);
+	    $comentario->setIdFunding($row['idFunding']);
             
             array_push($this->list, $comentario);
         }
