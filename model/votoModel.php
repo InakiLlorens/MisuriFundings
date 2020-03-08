@@ -38,7 +38,7 @@ class votoModel extends votoClass {
             $voto->setId($row['id']);
             $voto->setPositivo($row['positivo']);
             $voto->setIdUsuario($row['idUsuario']);
-	          $voto->setIdFunding($row['idFunding']);
+	    $voto->setIdFunding($row['idFunding']);
             
             array_push($this->list, $voto);
         }
