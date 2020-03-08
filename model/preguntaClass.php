@@ -1,20 +1,20 @@
 <?php
 class preguntaClass {    
     protected $id;
-    protected $descripcion; //La pregunta realizada
-    protected $idUsuario; //Tenemos puesto nombre en el esquema
+    protected $pregunta; //La preunta en si (en el esquema tenemos nombre)
+    protected $respuesta; //La pregunta respondida (en el esquema tenemos descripcion)
     protected $idFunding;
     
     function getId() {
         return $this->id;
     }
 
-    function getDescripcion() {
-        return $this->descripcion;
+    function getPregunta() {
+        return $this->pregunta;
     }
-
-    function getIdUsuario() {
-        return $this->idUsuario;
+    
+    function getRespuesta() {
+        return $this->respuesta;
     }
 
     function getIdFunding() {
@@ -25,12 +25,12 @@ class preguntaClass {
         $this->id = $id;
     }
 
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
+    function setPregunta($pregunta) {
+        $this->pregunta = $pregunta;
     }
-
-    function setIdUsuario($idUsuario) {
-        $this->idUsuario = $idUsuario;
+    
+    function setRespuesta($respuesta) {
+        $this->respuesta = $respuesta;
     }
 
     function setIdFunding($idFunding) {
