@@ -38,7 +38,7 @@ class patrocinioModel extends patrocinioClass {
             $patrocinio->setId($row['id']);
             $patrocinio->setidUsuario($row['idUsuario']);
             $patrocinio->setIdFunding($row['idFunding']);
-	          $patrocinio->setIdContribucion($row['idContribucion']);
+	    $patrocinio->setIdContribucion($row['idContribucion']);
             
             array_push($this->list, $patrocinio);
         }
