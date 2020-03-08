@@ -37,7 +37,7 @@ class galeriaModel extends galeriaClass {
             
             $imagen->setId($row['id']);
             $imagen->setImagen($row['imagen']);
-	          $imagen->setIdFunding($row['idFunding']);
+	    $imagen->setIdFunding($row['idFunding']);
             
             array_push($this->list, $imagen);
         }
