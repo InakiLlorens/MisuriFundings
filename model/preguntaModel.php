@@ -36,9 +36,9 @@ class preguntaModel extends preguntaClass {
             $pregunta=new preguntaModel();
             
             $pregunta->setId($row['id']);
-            $pregunta->setNombre($row['nombre']);
-            $pregunta->setDescripcion($row['descripcion']);
-	          $pregunta->setIdFunding($row['idFunding']);
+            $pregunta->setPregunta($row['pregunta']);
+            $pregunta->setRespuesta($row['respuesta']);
+	    $pregunta->setIdFunding($row['idFunding']);
             
             array_push($this->list, $pregunta);
         }
