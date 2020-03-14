@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-03-2020 a las 12:56:45
--- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
+-- Tiempo de generación: 14-03-2020 a las 17:16:26
+-- Versión del servidor: 10.1.40-MariaDB
+-- Versión de PHP: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `misuri_fundings`
 --
-CREATE DATABASE IF NOT EXISTS `misuri_fundings` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `misuri_fundings`;
 
 DELIMITER $$
 --
@@ -54,6 +52,9 @@ SELECT * FROM `usuario`$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllVotos` ()  NO SQL
 SELECT * FROM `voto`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spLogin` (IN `inUsuario` VARCHAR(64), IN `inContrasena` VARCHAR(64))  NO SQL
+SELECT * FROM usuario WHERE usuario=inUsuario AND contrasena=inContrasena$$
 
 DELIMITER ;
 
@@ -166,6 +167,13 @@ CREATE TABLE `usuario` (
   `contrasena` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `usuario`, `contrasena`, `email`) VALUES
+(2, 'sdadsasda', 'sdsadds', 'pruebauser', '123', '');
 
 -- --------------------------------------------------------
 
@@ -298,7 +306,7 @@ ALTER TABLE `pregunta`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `voto`
