@@ -47,5 +47,31 @@ class usuarioModel extends usuarioClass {
         mysqli_free_result($result);
         $this->CloseConnect();
     }
+    
+    public function tryLogin() {
+        $this->OpenConnect();  //Abrir conexión
+        $name =$this->getUsuario();
+        $contrasena= $this->getContrasena();
+        $sql = "CALL spLogin('$name', '$contrasena')"; //Sentencia SQL
+        
+        $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
+       
+        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $this->setId($row['id']);
+            $this->setNombre($row['nombre']);
+            $this->setApellido($row['apellido']);
+            $this->setUsuario($row['usuario']);
+            $this->setContrasena($row['contrasena']);
+            $this->setEmail($row['email']);
+            return true;
+        }
+        else{
+            return false;
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
+  
 }
 ?>

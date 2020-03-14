@@ -33,11 +33,10 @@ body{
   transform: translate(-50%, -50%);
   z-index: 2;
   padding: 50px;
-  border-radius: 2px;
+  border-radius: 10px;
   font-family: Arial, Helvetica, sans-serif;
-
-   
 }
+
 .centerContainer h1{
     color: black;
 }
@@ -92,4 +91,10 @@ font-size: 24px;
 }
 #backToLogin{
     margin-top: 10px;
+}
+
+/* alertas y avisos del login */
+#loginAlert{
+    margin-bottom: -10px;
+    display: none;
 }
