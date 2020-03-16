@@ -16,17 +16,18 @@ class errorObject {
         ;
     }
 
+ 
+    public static function logged() {
+        
+        $vars["success"]=true;
+        $vars["description"]="this user is already logged";
+        return $vars;
+        ;
+    }
     public static function notLogged() {
         
         $vars["success"]=false;
         $vars["description"]="this user is not logged";
-        return $vars;
-        ;
-    }
-    public static function logged() {
-        
-        $vars["success"]=false;
-        $vars["description"]="this user is already logged";
         return $vars;
         ;
     }

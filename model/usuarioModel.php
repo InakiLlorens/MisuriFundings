@@ -71,6 +71,28 @@ class usuarioModel extends usuarioClass {
         mysqli_free_result($result);
         $this->CloseConnect();
     }
+    public function insertUser(){
+        $this->OpenConnect();
+        
+        $nombre=$this->getNombre();
+        $apellido=$this->getApellido();
+       
+        $usuario=$this->getUsuario();
+        $contrasena=$this->getContrasena();
+        $email=$this->getEmail();
+
+        
+        $sql = "call  spRegisterUser('$nombre', '$apellido', '$usuario', '$contrasena', '$email')";
+        
+        if ($this->link->query($sql)>=1) // insert egiten da
+        {
+            return "El usuario se ha insertado con exito";
+        } else {
+            return "Fallï¿½ al insertar el usuario: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
     
   
 }

@@ -62,7 +62,7 @@ $("#loginAlert").slideUp();
                 else{
                     $("#loginForm").slideUp();
                     $(".header").html("<h1>¡Te has loggeado con exito!</h1> Pasatelo bien apoyando a tus artistas").ready();
-                    setTimeout(function(){ window.location = "www.google.com"; }, 1000);
+                    setTimeout(function(){ window.location = "http://www.google.com"; }, 1000);
                    
                 }
             },
@@ -73,6 +73,47 @@ $("#loginAlert").slideUp();
         });
 
     });
+
+    $("#registerButton").on("click", function(){
+        var nombre=$("#registerName").val();
+        var apellido=$("#registerSurname").val();
+        var usuario=$("#registerUsername").val();
+        var contrasena=$("#registerPassword1").val();
+        var email=$("#registerEmail").val();
+        console.log(nombre+apellido+contrasena+email);
+        
+        if (nombre.length!=0 && apellido.length!=0 && usuario.length!=0 && contrasena!=0){
+
+        
+
+
+        $.ajax({
+            url:'controller/cRegister.php',
+            method: "POST",
+
+            data:{
+                nombre: nombre,
+                apellido: apellido,
+                usuario: usuario,
+                contrasena: contrasena,
+                email: email,
+            },
+            success:function(){
+          
+            
+                   
+                
+            },
+            error : function(xhr) {
+                alert("An error occured: " + xhr.status + " " + xhr.statusText);
+            }
+        });
+    }
+    
+    });
+        
+        
+   
 
 
 });
