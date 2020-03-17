@@ -3,91 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Misuri fundings</title>
+    
     <!--------------css------------------------>
     <link rel="stylesheet" href="view/css/index.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
     <!--------------Scripts------------------------>
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	x
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-  crossorigin="anonymous"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script src="view/js/jsFunctions.js"></script>
+	<script src="view/js/jsFunctions.js"></script>
 </head>
 <body>
     <div class="background"></div>
     <div class="centerContainer">
         <div class="header">
-        <h1>¡Bienvenido a Misuri fundings!</h1>
-        <p>Antes de proceder a la pagina, debe logearse con su usuario</p>
-    </div>
+        	<h1>¡Bienvenido a Misuri fundings!</h1>
+        	<p>Antes de proceder a la página, debe loguearse con su usuario</p>
+    	</div>
    
         <form  id="loginForm">
-            <div class="form-group">
-              <label for="loginUsername">Nombre de usuario</label>
-              <input type="text" class="form-control" id="loginUsername">
+        	<div class="form-group">
+            	<label for="loginUsername">Nombre de usuario</label>
+            	<input type="text" class="form-control" id="loginUsername">
             </div>
             <div class="form-group">
-                <label for="loginPassword">Contraseña</label>
+            	<label for="loginPassword">Contraseña</label>
                 <input type="password" class="form-control" id="loginPassword">
-              </div>  
-              <div class="alert alert-danger" role="alert" id="loginAlert">
-             
-              </div>
-              <button type="button" class="btn btn-info formBtn" id="loginButton">Login</button>
-              <span>¿Aun no te has registrado? haz click <a>aquí</a> ahora si quieres registrate</span>
+            </div>  
+            <div class="alert alert-danger" role="alert" id="loginAlert"></div>
+            
+            <button type="button" class="btn btn-info formBtn" id="loginButton">Login</button>
+            <span>¿Aun no te has registrado? haz click <a>aquí</a> ahora si quieres registrate</span>
         </form>
         <form id="registerForm">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="name">Nombre</label>
-                  <input type="text" class="form-control" id="registerName" placeholder="Carrera">
+                	<label for="name">Nombre</label>
+                	<input type="text" class="form-control" id="registerName" placeholder="Carrera">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="surname">Apellido</label>
-                  <input type="text" class="form-control" id="registerSurname" placeholder="De Vainas">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputAddress">Nombre de usuario</label>
-                <input type="text" class="form-control" id="registerUsername" placeholder="MandalorianoFigura86">
-                <label for="registerUsername" class="nota"><b>Nota:</b> Este es el nombre que veran los demas usuarios</label>
-              </div>
-              <div class="form-row">
-                <label for="name" id="contraseñaLabel">Contraseña</label>
-                <div class="form-group col-md-6">
-                  
-                  <input type="password" class="form-control" class="registerContrasena" id="registerPassword1">
-                </div>
-                <div class="form-group col-md-6">
-                  <input type="password" class="form-control" class="registerContrasena" id="registerPassword2" placeholder="vuelve a escribirla aquí">
+                	<label for="surname">Apellido</label>
+                	<input type="text" class="form-control" id="registerSurname" placeholder="De Vainas">
                 </div>
             </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Email</label>
-                    <input type="text" class="form-control" id="registerEmail" placeholder="name@example.com">
-                    </div>
-                  
-              
-              <button type="button" class="btn btn-info formBtn" id="registerButton">Register</button>
-              <button type="button" class="btn btn-secondary" id="backToLogin">Volver</button>
-        </form>
-        
-       
-        
+            <div class="form-group">
+            	<label for="inputAddress">Nombre de usuario</label>
+                <input type="text" class="form-control" id="registerUsername" placeholder="MandalorianoFigura86">
+                <label for="registerUsername" class="nota"><b>Nota:</b> Este es el nombre que verán los demás usuarios</label>
+            </div>
+            <div class="form-row">
+                <label for="name" id="contraseñaLabel">Contraseña</label>
+                <div class="form-group col-md-6">   
+                	<input type="password" class="form-control" class="registerContrasena" id="registerPassword1">
+                </div>
+                <div class="form-group col-md-6">
+                	<input type="password" class="form-control" class="registerContrasena" id="registerPassword2" placeholder="vuelve a escribirla aquí">
+                </div>
+            </div>
+            <div class="form-group">
+            	<label for="exampleFormControlInput1">Email</label>
+                <input type="text" class="form-control" id="registerEmail" placeholder="name@example.com">
+            </div>
+
+            <button type="button" class="btn btn-info formBtn" id="registerButton">Registrarse</button>
+        	<button type="button" class="btn btn-secondary" id="backToLogin">Volver</button>
+        </form>  
     </div>
-
-
 </body>
 </html>
