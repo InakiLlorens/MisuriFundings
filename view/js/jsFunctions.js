@@ -1,13 +1,13 @@
 $( document ).ready(function() {
-	//------------------comprobar login-------------------------//	
+	//------------------Comprobar login-------------------------//	
 	$.ajax({
 	    url:'controller/cLoginCheck.php',
-	    method: 'GET',
+	    method:'GET',
 	    dataType:'json',
 	    success: function(response) {
 	        console.log(response)
 	        if (response.success == true) {
-	            window.location = "http://www.google.com";
+	            window.location = "view/main.html";
 	        }
 	    },
 	    error: function(xhr) {
@@ -37,7 +37,7 @@ $( document ).ready(function() {
 
         $.ajax({
             url:'controller/cLogin.php',
-            method: 'POST',
+            method:'POST',
             dataType:'json',
             data:{
                 user: username,
@@ -51,7 +51,7 @@ $( document ).ready(function() {
                 }else {
                     $("#loginForm").slideUp();
                     $(".header").html("<h1>¡Te has loggeado con exito!</h1> Pasatelo bien apoyando a tus artistas").ready();
-                    setTimeout(function() { window.location = "http://www.google.com";}, 1000);                  
+                    setTimeout(function() { window.location = "view/main.html";}, 1000);                  
                 }
             },
             error: function(xhr) {
