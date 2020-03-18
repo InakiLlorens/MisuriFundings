@@ -2,21 +2,28 @@ $( document ).ready(function() {
 	//------------------Comprobar login-------------------------//	
 	$.ajax({
 	    url:'controller/cLoginCheck.php',
-	    method:'GET',
 	    dataType:'json',
 	    success: function(response) {
 	        console.log(response)
 	        if (response.success == true) {
 	            window.location = "view/main.html";
-	        }
+	        }else {
+                console.log(response);
+            }
 	    },
 	    error: function(xhr) {
 	        alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	    }	    
-	});
+    });
+
 	//---------------------------------------------------------//
 
-	$("#loginForm input").on("keypress", function() {
+    $("#openLogin").on("click", function() {
+        $(this).parent().hide();
+        $(".loginContainer").slideDown();      
+    });
+    
+    $("#loginForm input").on("keypress", function() {
 		$("#loginAlert").slideUp();
 	});
 
