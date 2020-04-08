@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-03-2020 a las 17:16:26
+-- Tiempo de generación: 08-04-2020 a las 11:03:10
 -- Versión del servidor: 10.1.40-MariaDB
 -- Versión de PHP: 7.3.5
 
@@ -56,6 +56,9 @@ SELECT * FROM `voto`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spLogin` (IN `inUsuario` VARCHAR(64), IN `inContrasena` VARCHAR(64))  NO SQL
 SELECT * FROM usuario WHERE usuario=inUsuario AND contrasena=inContrasena$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spVotosByIdFunding` (IN `inIdFunding` INT)  NO SQL
+SELECT * FROM voto WHERE idFunding = inIdFunding$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -107,13 +110,25 @@ CREATE TABLE `contribucion` (
 
 CREATE TABLE `crowdfunding` (
   `id` int(11) NOT NULL,
-  `nombre` int(50) NOT NULL,
+  `nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `descripcion` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dineroR` int(11) NOT NULL,
   `dineroO` int(11) NOT NULL,
-  `fechaFIn` date NOT NULL,
+  `fechaFin` date NOT NULL,
   `imagen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `crowdfunding`
+--
+
+INSERT INTO `crowdfunding` (`id`, `nombre`, `descripcion`, `dineroR`, `dineroO`, `fechaFin`, `imagen`) VALUES
+(1, 'importante', 'descripcion de algo importante', 200, 400, '2020-04-22', ''),
+(2, 'secundario', 'descripcion de algo importante', 1, 333, '2020-04-23', ''),
+(3, 'secundario', 'descripcion de algo secundario', 200, 300, '0000-00-00', ''),
+(4, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', ''),
+(5, 'secundario', 'descripcion de algo secundario', 200, 300, '2020-04-30', ''),
+(6, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', '');
 
 -- --------------------------------------------------------
 
@@ -187,6 +202,18 @@ CREATE TABLE `voto` (
   `idUsuario` int(11) NOT NULL,
   `idFunding` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `voto`
+--
+
+INSERT INTO `voto` (`id`, `positivo`, `idUsuario`, `idFunding`) VALUES
+(1, 1, 2, 1),
+(2, 1, 2, 1),
+(4, 1, 2, 3),
+(5, 1, 2, 2),
+(6, 1, 2, 2),
+(7, 0, 2, 2);
 
 --
 -- Índices para tablas volcadas
@@ -282,7 +309,7 @@ ALTER TABLE `contribucion`
 -- AUTO_INCREMENT de la tabla `crowdfunding`
 --
 ALTER TABLE `crowdfunding`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `galeria`
@@ -312,7 +339,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `voto`
 --
 ALTER TABLE `voto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas

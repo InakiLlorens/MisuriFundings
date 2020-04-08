@@ -14,8 +14,20 @@ $( document ).ready(function() {
 	        alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	    }	    
 	});
-	//---------------------------------------------------------//
-	
+	//-----------------------Cargar fundings----------------------------------//
+	$.ajax({
+	    url:'../controller/cMain.php',
+	    method:'GET',
+	    dataType:'json',
+	    success: function(response) {
+	        console.log(response)
+	     
+	    },
+	    error: function(xhr) {
+	        alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	    }	    
+	});
+	//------------------------------------------------------------------------//
     $("#logoutButton").click(function() {
         $.ajax({
             url:'../controller/cLogout.php',

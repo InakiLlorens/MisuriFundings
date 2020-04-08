@@ -9,6 +9,7 @@ $usuario->setUsuario($username);
 $usuario->setContrasena($password);
 if ($usuario->tryLogin()) {
     session_start();
+    $_SESSION["id"]=$usuario->getId();
     $_SESSION["user"]=$username;
     $_SESSION["password"]=$password;
     echo json_encode(errorObject::loginSuccess());

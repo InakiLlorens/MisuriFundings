@@ -1,10 +1,45 @@
 <?php
 include_once 'connect_data.php';
 include_once 'crowdfundingClass.php';
+include_once 'votoModel.php';
 
 class crowdfundingModel extends crowdfundingClass {
     private $link;
     private $list=array();
+    private $listVotos= array();
+    private $votado; //si el usuario lo ha votado o no
+    
+    /**
+     * @return multitype:
+     */
+    public function getListVotos()
+    {
+        return $this->listVotos;
+    }
+
+    /**
+     * @param multitype: $listVotos
+     */
+    public function setListVotos($listVotos)
+    {
+        $this->listVotos = $listVotos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVotado()
+    {
+        return $this->votado;
+    }
+
+    /**
+     * @param mixed $votado
+     */
+    public function setVotado($votado)
+    {
+        $this->votado = $votado;
+    }
 
     public function OpenConnect() {
         $konDat = new connect_data();
@@ -43,10 +78,35 @@ class crowdfundingModel extends crowdfundingClass {
             $funding->setFechaFin($row['fechaFin']);
             $funding->setImagen($row['imagen']);
             
+            $newVotos= new votoModel();
+            $newVotos->setIdFunding($funding->getId());
+            $funding->setVotado($newVotos->setListByFundingId($funding->getId()));
+            $funding->setListVotos($newVotos->getList());
+            
+            
             array_push($this->list, $funding);
         }
         mysqli_free_result($result);
         $this->CloseConnect();
+    }
+    
+    function getListJsonString() {
+        $arr=array();
+        
+        foreach ($this->list as $object)
+        {
+            
+            $vars = get_object_vars($object);
+            $arrVotos=array();
+            foreach($this->listVotos as $objectVoto){
+                $varsVoto = get_object_vars($objectVoto);
+                array_push($arrVotos, $varsVoto);
+            }
+            $vars["objVoto"]=$arrVotos;
+
+            array_push($arr, $vars);
+        }
+        return $arr;
     }
 }
 ?>

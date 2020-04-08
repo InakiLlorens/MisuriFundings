@@ -6,7 +6,7 @@ $( document ).ready(function() {
 	    success: function(response) {
 	        console.log(response)
 	        if (response.success == true) {
-	            window.location = "view/main.html";
+	            window.location = "view/vMain.html";
 	        }else {
                 console.log(response);
             }
@@ -58,7 +58,7 @@ $( document ).ready(function() {
                 }else {
                     $("#loginForm").slideUp();
                     $(".header").html("<h1>¡Te has loggeado con exito!</h1> Pasatelo bien apoyando a tus artistas").ready();
-                    setTimeout(function() { window.location = "view/main.html";}, 1000);                  
+                    setTimeout(function() { window.location = "view/vMain.html";}, 1000);                  
                 }
             },
             error: function(xhr) {

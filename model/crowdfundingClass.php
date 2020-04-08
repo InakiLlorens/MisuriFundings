@@ -8,65 +8,70 @@ class crowdfundingClass {
     protected $fechaFin; //Fecha límite para recaudar el dinero
     protected $imagen; //Imagen de ejemplo visual del proyecto
     
-    function getId() {
+    
+    public function getId() {
         return $this->id;
     }
 
-    function getNombre() {
+    public function getNombre() {
         return $this->nombre;
     }
 
-    function getDescripcion() {
+    public function getDescripcion() {
         return $this->descripcion;
     }
 
-    function getDineroR() {
+    public function getDineroR() {
         return $this->dineroR;
     }
 
-    function getDineroO() {
+    public function getDineroO() {
         return $this->dineroO;
     }
 
-    function getFechaFin() {
+    public function getFechaFin() {
         return $this->fechaFin;
     }
 
-    function getImagen() {
+    public function getImagen() {
         return $this->imagen;
     }
+    
 
-    function setId($id) {
+    public function setId($id) {
         $this->id = $id;
     }
 
-    function setNombre($nombre) {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
     }
 
-    function setDescripcion($descripcion) {
+    public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
     }
 
-    function setDineroR($DineroR) {
-        $this->dineroR = $dineroR;
+    public function setDineroR($DineroR) {
+        $this->dineroR = $DineroR;
     }
 
-    function setDineroO($dineroO) {
+    public function setDineroO($dineroO) {
         $this->dineroO = $dineroO;
     }
 
-    function setFechaFin($fechaFin) {
+    public function setFechaFin($fechaFin) {
         $this->fechaFin = $fechaFin;
     }
 
-    function setImagen($imagen) {
+    public function setImagen($imagen) {
         $this->imagen = $imagen;
     }
+ 
+
 
     function getObjectVars() {
         $vars=get_object_vars($this);
         return  $vars;
     } 
+    
 }
 ?>
