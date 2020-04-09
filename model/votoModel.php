@@ -55,10 +55,11 @@ class votoModel extends votoClass {
         $this->OpenConnect();  //Abrir conexión
         
         
-        $sql = "CALL  spVotosByIdFunding($idFunding)"; //Sentencia SQL
+        $sql = "CALL spVotosByIdFunding($idFunding)"; //Sentencia SQL
         
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
        
+     
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             
             $voto=new votoModel();
@@ -80,6 +81,7 @@ class votoModel extends votoClass {
         }
         mysqli_free_result($result);
         $this->CloseConnect();
+        
         return $votado;
     }
     /**

@@ -80,29 +80,36 @@ class crowdfundingModel extends crowdfundingClass {
             
             $newVotos= new votoModel();
             $newVotos->setIdFunding($funding->getId());
-            $funding->setVotado($newVotos->setListByFundingId($funding->getId()));
-            $funding->setListVotos($newVotos->getList());
             
+            $funding->setVotado($newVotos->setListByFundingId());
+            
+            $newVotos->setListByFundingId();
+            
+           
+            $funding->setListVotos($newVotos->getList());
+       
             
             array_push($this->list, $funding);
         }
+        
         mysqli_free_result($result);
         $this->CloseConnect();
     }
     
     function getListJsonString() {
         $arr=array();
-        
+      
+      
         foreach ($this->list as $object)
         {
             
             $vars = get_object_vars($object);
             $arrVotos=array();
-            foreach($this->listVotos as $objectVoto){
-                $varsVoto = get_object_vars($objectVoto);
+            foreach($object->getListVotos() as $objectVoto){
+                $varsVoto = $objectVoto->getObjectVars();
                 array_push($arrVotos, $varsVoto);
             }
-            $vars["objVoto"]=$arrVotos;
+            $vars["listVotos"]=$arrVotos;
 
             array_push($arr, $vars);
         }
