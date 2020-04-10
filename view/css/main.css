@@ -1,0 +1,16 @@
+body{
+    background-color: rgb(19, 196, 202) !important;
+}
+
+.pageBody{
+    margin: 10px;
+}
+.mainCard{
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    height: 400px;
+}
+.secondaryCard{
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}

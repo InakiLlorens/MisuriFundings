@@ -41,3 +41,16 @@ $( document ).ready(function() {
         });
     });
 });
+
+function arrayOrderByVote(fundingArray){
+	for (let index = 0; index < fundingArray.length; index++) {
+		const element = array[index];
+		
+	
+	for (let index = 0; index < fundingArray.listVotos.length; index++) {
+		const element = array[index];
+		
+	}
+	}
+
+}
