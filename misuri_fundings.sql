@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2020 a las 12:36:49
--- Versión del servidor: 10.1.40-MariaDB
--- Versión de PHP: 7.3.5
+-- Tiempo de generación: 11-04-2020 a las 16:07:28
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -55,6 +55,9 @@ SELECT * FROM `voto`$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spLogin` (IN `inUsuario` VARCHAR(64), IN `inContrasena` VARCHAR(64))  NO SQL
 SELECT * FROM usuario WHERE usuario=inUsuario AND contrasena=inContrasena$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spOrderByVoto` ()  NO SQL
+SELECT SUM(positivo) AS ratioVoto, idFunding FROM voto GROUP BY idFunding ORDER BY ratioVoto DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spVotosByIdFunding` (IN `inIdFunding` INT)  NO SQL
 SELECT * FROM voto WHERE idFunding = inIdFunding$$
@@ -198,7 +201,7 @@ INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `usuario`, `contrasena`, `ema
 
 CREATE TABLE `voto` (
   `id` int(11) NOT NULL,
-  `positivo` tinyint(1) NOT NULL,
+  `positivo` int(1) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `idFunding` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -213,7 +216,7 @@ INSERT INTO `voto` (`id`, `positivo`, `idUsuario`, `idFunding`) VALUES
 (4, 1, 2, 3),
 (5, 1, 2, 2),
 (6, 1, 2, 2),
-(7, 0, 2, 2);
+(7, -1, 2, 1);
 
 --
 -- Índices para tablas volcadas
