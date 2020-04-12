@@ -8,7 +8,45 @@ class crowdfundingModel extends crowdfundingClass {
     private $list=array();
     private $listVotos= array();
     private $votado; //si el usuario lo ha votado o no
+    private $votosPositivos;
+    private $votosNegativos;
     
+    /**
+     * @return mixed
+     */
+    public function getVotosPositivos()
+    {
+        return $this->votosPositivos;
+    }
+    public function getList()
+    {
+        return $this->list;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVotosNegativos()
+    {
+        return $this->votosNegativos;
+    }
+
+    /**
+     * @param mixed $votosPositivos
+     */
+    public function setVotosPositivos($votosPositivos)
+    {
+        $this->votosPositivos = $votosPositivos;
+    }
+
+    /**
+     * @param mixed $votosNegativos
+     */
+    public function setVotosNegativos($votosNegativos)
+    {
+        $this->votosNegativos = $votosNegativos;
+    }
+
     /**
      * @return multitype:
      */
@@ -62,7 +100,7 @@ class crowdfundingModel extends crowdfundingClass {
     public function setList() {
         $this->OpenConnect();  //Abrir conexión
         
-        $sql = "CALL spAllCrowdfundings()"; //Sentencia SQL
+        $sql = "CALL spOrderByVoto();"; //Sentencia SQL
         
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
         
@@ -82,12 +120,11 @@ class crowdfundingModel extends crowdfundingClass {
             $newVotos->setIdFunding($funding->getId());
             
             $funding->setVotado($newVotos->setListByFundingId());
-            
-            $newVotos->setListByFundingId();
-            
-           
             $funding->setListVotos($newVotos->getList());
        
+            
+            
+            
             
             array_push($this->list, $funding);
         }
@@ -115,5 +152,31 @@ class crowdfundingModel extends crowdfundingClass {
         }
         return $arr;
     }
+    
+    function countVotes(){
+        
+        for ($i = 0; $i < sizeof($this->getList()); $i++) {
+            $votosPositivos=0;
+            $votosNegativos=0;
+            $votosList=$this->getList()[$i]->getListVotos();
+            for ($j = 0; $j < sizeof($votosList); $j++) {
+                if ($votosList[$j]->getPositivo()==1){
+                    $votosPositivos++;
+                }
+                else{
+                    $votosNegativos++;
+                }
+            }
+            $this->getList()[$i]->setVotosPositivos($votosPositivos);
+            $this->getList()[$i]->setVotosNegativos($votosNegativos);
+        }
+            
+        
+        
+        
+    }
+
+    
+   
 }
 ?>

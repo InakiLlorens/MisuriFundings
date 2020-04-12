@@ -69,10 +69,10 @@ class votoModel extends votoClass {
             $voto->setIdUsuario($row['idUsuario']);
             $voto->setIdFunding($row['idFunding']);
             if ($voto->getIdUsuario()==$id){
-                if ($voto->getPositivo()==0){
+                if ($voto->getPositivo()==-1){
                     $votado=0;
                 }
-                else{
+                else if ($voto->getPositivo()==1){
                     $votado=1;
                 }
             }

@@ -4,13 +4,72 @@ body{
 
 .pageBody{
     margin: 10px;
+    background-color: white;
+    border-radius: .25rem;
 }
 .mainCard{
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     height: 400px;
 }
+.mainCard .voteContainer img{
+    width: 26px;
+    height: 26px;
+}
 .secondaryCard{
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
+}
+.container{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.voteContainer{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+.voteContainer img{
+    width: 26px;
+    height: 26px;
+}
+
+.voteContainer div:hover{
+    cursor: pointer;
+}
+
+.positivo{
+    transition: 1s;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border: 2px solid rgb(185, 185, 185);
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    vertical-align: center;
+    padding: 5px;
+
+}
+.negativo{
+    transition: 1s;
+    display: flex;
+    align-content: center;
+    border: 2px solid rgb(185, 185, 185);
+    align-content: center;
+    justify-content: center;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+  
+}
+.activoPositivo{
+    background-color: green;
+    border: 2px solid rgb(0, 175, 0);
+}
+.activoNegativo{
+    background-color: red;
+    border: 2px solid rgb(255, 127, 127);
 }
