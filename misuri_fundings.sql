@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-04-2020 a las 16:07:28
--- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
+-- Tiempo de generación: 13-04-2020 a las 15:57:12
+-- Versión del servidor: 10.1.40-MariaDB
+-- Versión de PHP: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -57,7 +57,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `spLogin` (IN `inUsuario` VARCHAR(64
 SELECT * FROM usuario WHERE usuario=inUsuario AND contrasena=inContrasena$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spOrderByVoto` ()  NO SQL
-SELECT SUM(positivo) AS ratioVoto, idFunding FROM voto GROUP BY idFunding ORDER BY ratioVoto DESC$$
+SELECT SUM(positivo) AS ratioVoto, idFunding, crowdfunding.* FROM voto RIGHT JOIN crowdfunding ON idFunding=crowdfunding.id GROUP BY crowdfunding.id ORDER BY ratioVoto DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spVotosByIdFunding` (IN `inIdFunding` INT)  NO SQL
 SELECT * FROM voto WHERE idFunding = inIdFunding$$
@@ -126,7 +126,7 @@ CREATE TABLE `crowdfunding` (
 --
 
 INSERT INTO `crowdfunding` (`id`, `nombre`, `descripcion`, `dineroR`, `dineroO`, `fechaFin`, `imagen`) VALUES
-(1, 'importante', 'descripcion de algo importante', 200, 400, '2020-04-22', ''),
+(1, 'importante', 'descripcion de algo importante', 200, 400, '2020-04-22', 'aaa'),
 (2, 'secundario', 'descripcion de algo importante', 1, 333, '2020-04-23', ''),
 (3, 'secundario', 'descripcion de algo secundario', 200, 300, '0000-00-00', ''),
 (4, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', ''),
@@ -216,7 +216,7 @@ INSERT INTO `voto` (`id`, `positivo`, `idUsuario`, `idFunding`) VALUES
 (4, 1, 2, 3),
 (5, 1, 2, 2),
 (6, 1, 2, 2),
-(7, -1, 2, 1);
+(7, -1, 2, 2);
 
 --
 -- Índices para tablas volcadas
