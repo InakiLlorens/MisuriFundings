@@ -31,7 +31,7 @@ $( document ).ready(function() {
 					<div class="row no-gutters">
 					  <div class="col-md-4">
 						<img src="`+response[index].imagen+`" class="card-img" alt="...">
-						<div class="voteContainer" data-id=`+response[index].id+`>`;
+						<div class="voteContainer" data-idfunding=`+response[index].id+`>`;
 					if (response[index].votado==1){
 					htmlzatia+=`<div class="positivo activoPositivo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Thumb_up_icon_2.svg/1200px-Thumb_up_icon_2.svg.png"></div>
 					<div class="negativo"><img src="https://image.flaticon.com/icons/png/512/25/25395.png"></div>`;
@@ -62,7 +62,7 @@ $( document ).ready(function() {
 				htmlzatia+=`<div class="card-group">
 				<div class="card secondaryCard">
 				  <img src="`+response[index].imagen+`" class="card-img-top" alt="...">
-				  <div class="voteContainer" data-id=`+response[index].id+`>`;
+				  <div class="voteContainer" data-idfunding=`+response[index].id+`>`;
 					if (response[index].votado==1){
 					htmlzatia+=`<div class="positivo activoPositivo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Thumb_up_icon_2.svg/1200px-Thumb_up_icon_2.svg.png"></div>
 					<div class="negativo"><img src="https://image.flaticon.com/icons/png/512/25/25395.png"></div>`;
@@ -87,7 +87,7 @@ $( document ).ready(function() {
 				else if (index==2){
 				htmlzatia+=`<div class="card secondaryCard">
 				<img src="`+response[index].imagen+`" class="card-img-top" alt="...">
-				<div class="voteContainer" data-id=`+response[index].id+`>`;
+				<div class="voteContainer" data-idfunding=`+response[index].id+`>`;
 					if (response[index].votado==1){
 					htmlzatia+=`<div class="positivo activoPositivo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Thumb_up_icon_2.svg/1200px-Thumb_up_icon_2.svg.png"></div>
 					<div class="negativo"><img src="https://image.flaticon.com/icons/png/512/25/25395.png"></div>`;
@@ -124,7 +124,7 @@ $( document ).ready(function() {
 					<div class="card" style="width: 18rem;">
 					
 					<img src="`+response[index].imagen+`" class="card-img-top" alt="...">
-					<div class="voteContainer" data-id=`+response[index].id+`>`;
+					<div class="voteContainer" data-idfunding=`+response[index].id+`>`;
 					if (response[index].votado==1){
 					htmlzatia+=`<div class="positivo activoPositivo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Thumb_up_icon_2.svg/1200px-Thumb_up_icon_2.svg.png"></div>
 					<div class="negativo"><img src="https://image.flaticon.com/icons/png/512/25/25395.png"></div>`;
@@ -159,12 +159,48 @@ $( document ).ready(function() {
 		
 
 		$(".negativo").on("click", function(){
-			$(this).addClass("activoNegativo");
-			$(this).siblings(".activoPositivo").removeClass("activoPositivo");
+			var id = $(this).parent().data("idfunding");
+			var positivo =-1;
+			alert(id);
+			if (!$(this).hasClass("activoNegativo") && !$(this).siblings().hasClass("activoPositivo")){
+				//si no ha votado a nada
+				alert("a");
+				$(this).addClass("activoNegativo");
+				$.ajax({
+					url:'../controller/cInsertVoto.php',
+					method:'POST',
+					data: {"idFunding":id, "positivo":positivo},
+					dataType:'json',
+					success: function(response) {
+						
+					},
+					error: function(xhr) {
+						alert("An error occured: " + xhr.status + " " + xhr.statusText);
+					}	    
+				});
+
+			}
+			else if(!$(this).hasClass("activoNegativo")){
+				//si cambia el voto
+				$(this).addClass("activoNegativo");
+				$(this).siblings(".activoPositivo").removeClass("activoPositivo");
+			}
+
+			else{
+				//si quita el voto que ya tiene
+				$(this).removeClass("activoNegativo");
+			}
+		
+			
 		});
 		$(".positivo").on("click", function(){
+			if (!$(this).hasClass("activoPositivo")){			
 			$(this).addClass("activoPositivo");
 			$(this).siblings(".activoNegativo").removeClass("activoNegativo");
+		}
+			else{
+
+			}
 		});
 
 

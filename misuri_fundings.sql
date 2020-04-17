@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-04-2020 a las 15:57:12
+-- Tiempo de generación: 17-04-2020 a las 17:47:51
 -- Versión del servidor: 10.1.40-MariaDB
 -- Versión de PHP: 7.3.5
 
@@ -52,6 +52,12 @@ SELECT * FROM `usuario`$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllVotos` ()  NO SQL
 SELECT * FROM `voto`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteVoto` (IN `inIdFunding` INT, IN `inIdUsuario` INT)  NO SQL
+DELETE FROM `voto` WHERE idFunding=inId AND idUsuario=inIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertVoto` (IN `inPositivo` INT, IN `inIdUsuario` INT, IN `inIdFunding` INT)  NO SQL
+INSERT INTO `voto`(`positivo`, `idUsuario`, `idFunding`) VALUES (inPositivo,inIdUsuario,inIdFunding)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spLogin` (IN `inUsuario` VARCHAR(64), IN `inContrasena` VARCHAR(64))  NO SQL
 SELECT * FROM usuario WHERE usuario=inUsuario AND contrasena=inContrasena$$
@@ -216,7 +222,10 @@ INSERT INTO `voto` (`id`, `positivo`, `idUsuario`, `idFunding`) VALUES
 (4, 1, 2, 3),
 (5, 1, 2, 2),
 (6, 1, 2, 2),
-(7, -1, 2, 2);
+(7, -1, 2, 2),
+(13, -1, 2, 5),
+(14, -1, 2, 6),
+(15, -1, 2, 4);
 
 --
 -- Índices para tablas volcadas
@@ -342,7 +351,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `voto`
 --
 ALTER TABLE `voto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas

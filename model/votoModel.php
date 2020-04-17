@@ -84,9 +84,38 @@ class votoModel extends votoClass {
         
         return $votado;
     }
-    /**
-     * @return multitype:
-     */
+
+    
+    public function deleteVoto(){
+        $idFunding=$this->getIdFunding();
+        $idUser=$this->getIdUsuario();
+        $this->OpenConnect();  //Abrir conexión
+        
+        
+        $sql = "CALL   	spDeleteVoto ($idFunding, $idUser)"; //Sentencia SQL
+        
+        $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
+        
+        
+        mysqli_free_result($result);
+        $this->CloseConnect();
+        
+    }
+    public function insertVoto(){
+        $positivo=$this->getPositivo();
+        $idFunding=$this->getIdFunding();
+        $idUser=$this->getIdUsuario();
+        $this->OpenConnect();  //Abrir conexión
+        
+        
+        $sql = "CALL spInsertVoto ($positivo,$idUser, $idFunding)"; //Sentencia SQL
+
+        $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
+        
+        
+        $this->CloseConnect();
+        
+    }
     public function getList()
     {
         return $this->list;
