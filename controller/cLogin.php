@@ -16,5 +16,4 @@ if ($usuario->tryLogin()) {
 } else {
     echo json_encode(errorObject::loginError());
 }
-
 ?>
