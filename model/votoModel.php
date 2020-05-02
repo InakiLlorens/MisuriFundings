@@ -95,7 +95,7 @@ class votoModel extends votoClass {
         
         
         $sql = "CALL spUpdateVoto ($positivo,$idFunding, $idUser)"; //Sentencia SQL
-        echo $sql;
+     
         echo $sql;
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
         
