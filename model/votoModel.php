@@ -86,18 +86,35 @@ class votoModel extends votoClass {
     }
 
     
+    
+    public function updateVoto(){
+        $positivo=$this->getPositivo();
+        $idFunding=$this->getIdFunding();
+        $idUser=$this->getIdUsuario();
+        $this->OpenConnect();  //Abrir conexión
+        
+        
+        $sql = "CALL spUpdateVoto ($positivo,$idFunding, $idUser)"; //Sentencia SQL
+        echo $sql;
+        echo $sql;
+        $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
+        
+        
+        $this->CloseConnect();
+        
+    }
+    
     public function deleteVoto(){
         $idFunding=$this->getIdFunding();
         $idUser=$this->getIdUsuario();
         $this->OpenConnect();  //Abrir conexión
         
         
-        $sql = "CALL   	spDeleteVoto ($idFunding, $idUser)"; //Sentencia SQL
-        
+        $sql = "CALL spDeleteVoto ($idFunding, $idUser)"; //Sentencia SQL
+        echo $sql;
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
         
         
-        mysqli_free_result($result);
         $this->CloseConnect();
         
     }
@@ -116,6 +133,7 @@ class votoModel extends votoClass {
         $this->CloseConnect();
         
     }
+  
     public function getList()
     {
         return $this->list;

@@ -162,17 +162,16 @@ $(document).ready(function() {
 		$(".negativo").on("click", function(){
 			var id = $(this).parent().data("idfunding");
 			var positivo =-1;
-			alert(id);
+
 			if (!$(this).hasClass("activoNegativo") && !$(this).siblings().hasClass("activoPositivo")){
 				//si no ha votado a nada
-				alert("a");
+
 				$(this).addClass("activoNegativo");
 				$.ajax({
 					url:'../controller/cInsertVoto.php',
 					method:'POST',
 					data: {"idFunding":id, "positivo":positivo},
-					dataType:'json',
-					success: function(response) {
+					success: function() {
 						
 					},
 					error: function(xhr) {
@@ -183,25 +182,95 @@ $(document).ready(function() {
 			}
 			else if(!$(this).hasClass("activoNegativo")){
 				//si cambia el voto
+				
 				$(this).addClass("activoNegativo");
 				$(this).siblings(".activoPositivo").removeClass("activoPositivo");
+				$.ajax({
+					url:'../controller/cUpdateVoto.php',
+					method:'POST',
+					data: {"idFunding":id, "positivo":positivo},
+					success: function() {
+						
+					},
+					error: function(xhr) {
+						alert("An error occured: " + xhr.status + " " + xhr.statusText);
+					}	    
+				});
 			}
 
 			else{
 				//si quita el voto que ya tiene
 				$(this).removeClass("activoNegativo");
+					$.ajax({
+						url:'../controller/cDeleteVoto.php',
+						method:'POST',
+						data: {"idFunding":id},
+						success: function() {
+							
+						},
+						error: function(xhr) {
+							alert("An error occured: " + xhr.status + " " + xhr.statusText);
+						}	    
+					});
 			}
 				
 		});
 		
 		$(".positivo").on("click", function(){
-			if (!$(this).hasClass("activoPositivo")){			
-			$(this).addClass("activoPositivo");
-			$(this).siblings(".activoNegativo").removeClass("activoNegativo");
-		}
-			else{
+			var id = $(this).parent().data("idfunding");
+			var positivo =1;
+
+			if (!$(this).hasClass("activoPositivo") && !$(this).siblings().hasClass("activoNegativo")){
+				//si no ha votado a nada
+
+				$(this).addClass("activoPositivo");
+				$.ajax({
+					url:'../controller/cInsertVoto.php',
+					method:'POST',
+					data: {"idFunding":id, "positivo":positivo},
+					success: function() {
+						
+					},
+					error: function(xhr) {
+						alert("An error occured: " + xhr.status + " " + xhr.statusText);
+					}	    
+				});
 
 			}
+			else if(!$(this).hasClass("activoPositivo")){
+				//si cambia el voto
+				
+				$(this).addClass("activoPositivo");
+				$(this).siblings(".activoNegativo").removeClass("activoNegativo");
+				$.ajax({
+					url:'../controller/cUpdateVoto.php',
+					method:'POST',
+					data: {"idFunding":id, "positivo":positivo},
+					success: function() {
+						
+					},
+					error: function(xhr) {
+						alert("An error occured: " + xhr.status + " " + xhr.statusText);
+					}	    
+				});
+			}
+
+			else{
+				//si quita el voto que ya tiene
+				$(this).removeClass("activoPositivo");
+					$.ajax({
+						url:'../controller/cDeleteVoto.php',
+						method:'POST',
+						data: {"idFunding":id},
+						success: function() {
+							
+						},
+						error: function(xhr) {
+							alert("An error occured: " + xhr.status + " " + xhr.statusText);
+						}	    
+					});
+			}
+			
 		});
 
 	    },
