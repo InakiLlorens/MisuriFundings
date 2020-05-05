@@ -36,6 +36,9 @@ $( document ).ready(function() {
     $("#backToLogin").on("click", function() {
         $(this).parent().slideUp()
         $("#loginForm").slideDown();
+        $("#alertContrasenas").slideUp();
+			$("#registerPassword1").css("border", "1px solid #ced4da");
+			$("#registerPassword2").css("border", "1px solid #ced4da");
     });
 
     $("#loginButton").on("click", function() {
@@ -67,16 +70,41 @@ $( document ).ready(function() {
         });
     });
 
+
+    $("#registerPassword2").on("focusout", function () {//esto comprieba si la contraseña esta bien puesta por segunda vez
+		htmlzatia = "";
+		if ($(this).val() != $("#registerPassword1").val()) {
+			$("#registerPassword1").css("border", "1px solid #fc3a28");
+			$(this).css("border", "1px solid #fc3a28");
+			$("#alertContrasenas").slideDown();
+
+		}
+		else {
+			$("#alertContrasenas").slideUp();
+			$("#registerPassword1").css("border", "1px solid #ced4da");
+			$(this).css("border", "1px solid #ced4da");
+		}
+	});
+	$("#registerPassword1").on("focusout", function () {
+		if ($(this).val() == $("#registerPassword2").val()) {
+			$("#alertContrasenas").slideUp();
+			$("#registerPassword2").css("border", "1px solid #ced4da");
+			$(this).css("border", "1px solid #ced4da");
+		}
+
+    });
+
     $("#registerButton").on("click", function() {
         var nombre=$("#registerName").val();
         var apellido=$("#registerSurname").val();
         var usuario=$("#registerUsername").val();
         var contrasena=$("#registerPassword1").val();
+        var contrasena2=$("#registerPassword2").val();
         var email=$("#registerEmail").val();
         
         console.log(nombre+apellido+contrasena+email);
-        
-        if (nombre.length!=0 && apellido.length!=0 && usuario.length!=0 && contrasena!=0) {
+       
+        if (nombre.length!=0 && apellido.length!=0 && usuario.length!=0 && contrasena!=0 && contrasena==contrasena2) {
 	        $.ajax({
 	            url:'controller/cRegister.php',
 	            method: 'POST',
@@ -94,6 +122,10 @@ $( document ).ready(function() {
 	                alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	            }
 	        });
-	    }
+        }
+        else{
+            alert("rellena todos los campos correctamente");
+        }
     });
+
 });

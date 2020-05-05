@@ -22,6 +22,10 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+.alert-danger{
+    display: none;
+
+}
 
 .loginContainer {
     display: none; 
