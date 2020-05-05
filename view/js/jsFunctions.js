@@ -34,7 +34,8 @@ $( document ).ready(function() {
     });
     
     $("#backToLogin").on("click", function() {
-        $(this).parent().slideUp()
+        $(this).parent().slideUp();
+        $(this).parent().slideUp();
         $("#loginForm").slideDown();
         $("#alertContrasenas").slideUp();
 			$("#registerPassword1").css("border", "1px solid #ced4da");
