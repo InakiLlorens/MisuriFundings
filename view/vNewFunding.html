@@ -20,7 +20,9 @@
 <body>
     <div class="background"></div>
     
-    <div class="centerContainer">                
+    <div class="centerContainer">
+    <h1>NUEVO FUNDING</h1>
+    <hr>               
 	    <form id="newFundingForm">
 	        <div class="form-row">
 	            <div class="form-group col-md-6">
@@ -28,13 +30,17 @@
 	                <input type="text" class="form-control" id="newNombre" placeholder="Pokemon Ranger Switch">
 	            </div>
 	            <div class="form-group col-md-6">
-	                <label for="meta">Meta monetaria (€)</label>
+	                <label for="meta">Meta (€)</label>
 	                <input type="number" class="form-control" id="newMeta" placeholder="10000">
 	            </div>
 	        </div>
 	        <div class="form-group">
 	            <label for="descripcion">Descripción</label>
 	            <textarea class="form-control" id="newDescripcion" placeholder="Este juego será la polla cuando salga el año que viene, tal vez dentro de dos por el coronavirus. F en el chat."></textarea>
+	        </div>
+	        <div class="form-group">
+	            <label for="comentario">Comentario</label>
+	            <textarea class="form-control" id="newComentario" placeholder="Ideas breves para identificar el funding."></textarea>
 	        </div>
 	        <div class="form-row">
 	            <div class="form-group col-md-6">
@@ -46,9 +52,14 @@
 	                <input type="text" class="form-control" id="newImagen" placeholder="frontPkmRangerSwitch.jpg">
 	            </div>
 	        </div>
-	
-	        <button type="button" class="btn btn-info formBtn" id="insertFundingButton">Crear funding</button>
-	        <a href="vMain.html" type="button" class="btn btn-secondary  formBtn">Volver</a>
+	        <div class="form-row">
+	        	<div class="col-md-6">
+	            	<button type="button" class="btn btn-info formBtn" id="insertFundingButton">Crear funding</button>
+	        	</div>
+	        	<div class="col-md-6">
+	            	<a href="vMain.html" type="button" class="btn btn-secondary formBtn">Volver</a>
+	        	</div>
+	        </div> 
 	    </form>
     </div>
 </body>

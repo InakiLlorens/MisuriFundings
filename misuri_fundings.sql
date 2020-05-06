@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-05-2020 a las 14:39:33
--- Versión del servidor: 10.1.40-MariaDB
--- Versión de PHP: 7.3.5
+-- Tiempo de generación: 06-05-2020 a las 22:28:46
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -59,6 +59,15 @@ DELETE FROM `voto` WHERE idFunding=inIdFunding AND idUsuario=inIdUsuario$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFundingById` (IN `inIdFunding` INT)  NO SQL
 SELECT * FROM `crowdfunding` WHERE crowdfunding.id=inIdFunding$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFundingByName` (IN `inNombre` VARCHAR(50))  NO SQL
+SELECT * FROM `crowdfunding` WHERE crowdfunding.nombre=inNombre$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertComentario` (IN `inComentario` VARCHAR(250), IN `inIdUsuario` INT(11), IN `inIdFunding` INT(11))  NO SQL
+INSERT INTO `comentario`(`comentario`, `idUsuario`, `idFunding`) VALUES (inComentario,inIdUsuario,inIdFunding)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertFunding` (IN `inNombre` VARCHAR(50), IN `inDescripcion` VARCHAR(250), IN `inDineroO` INT(11), IN `inFechaFin` DATE, IN `inImagen` VARCHAR(50))  NO SQL
+INSERT INTO `crowdfunding`(`nombre`, `descripcion`, `dineroO`, `fechaFin`, `imagen`) VALUES (inNombre,inDescripcion,inDineroO,inFechaFin,inImagen)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertVoto` (IN `inPositivo` INT, IN `inIdUsuario` INT, IN `inIdFunding` INT)  NO SQL
 INSERT INTO `voto`(`positivo`, `idUsuario`, `idFunding`) VALUES (inPositivo,inIdUsuario,inIdFunding)$$
 
@@ -108,7 +117,9 @@ CREATE TABLE `comentario` (
 --
 
 INSERT INTO `comentario` (`id`, `comentario`, `idUsuario`, `idFunding`) VALUES
-(1, 'Un gran trabajo Markel.', 2, 1);
+(1, 'Un gran trabajo Markel.', 2, 1),
+(2, 'El definitivo.', 2, 15),
+(3, 'Oso ondo Markel.', 2, 16);
 
 -- --------------------------------------------------------
 
@@ -157,7 +168,11 @@ INSERT INTO `crowdfunding` (`id`, `nombre`, `descripcion`, `dineroR`, `dineroO`,
 (3, 'secundario', 'descripcion de algo secundario', 200, 300, '0000-00-00', ''),
 (4, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', ''),
 (5, 'secundario', 'descripcion de algo secundario', 200, 300, '2020-04-30', ''),
-(6, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', '');
+(6, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', ''),
+(8, 'Prueba', 'Esta es una prueba', 0, 300, '2020-05-11', 'imagenDePrueba.jpg'),
+(14, 'Pruebecita', 'Ahora tal vez si', 0, 100, '2020-05-16', 'siNoSe'),
+(15, 'Pruebon', 'Lo llamaban.', 0, 234, '2020-05-15', 'loEs'),
+(16, 'Hechisimo', 'Esto esta hechisimo.', 0, 123, '2020-05-12', 'caricia.jpg');
 
 -- --------------------------------------------------------
 
@@ -254,7 +269,9 @@ INSERT INTO `voto` (`id`, `positivo`, `idUsuario`, `idFunding`) VALUES
 (1, 1, 2, 1),
 (2, 1, 2, 1),
 (4, 1, 2, 3),
-(21, 1, 2, 5);
+(21, 1, 2, 5),
+(26, -1, 2, 6),
+(27, 1, 2, 8);
 
 --
 -- Índices para tablas volcadas
@@ -338,7 +355,7 @@ ALTER TABLE `actualizacion`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `contribucion`
@@ -350,7 +367,7 @@ ALTER TABLE `contribucion`
 -- AUTO_INCREMENT de la tabla `crowdfunding`
 --
 ALTER TABLE `crowdfunding`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `galeria`
@@ -380,7 +397,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `voto`
 --
 ALTER TABLE `voto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Restricciones para tablas volcadas

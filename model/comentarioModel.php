@@ -38,11 +38,29 @@ class comentarioModel extends comentarioClass {
             $comentario->setId($row['id']);
             $comentario->setComentario($row['comentario']);
             $comentario->setIdUsuario($row['idUsuario']);
-	    $comentario->setIdFunding($row['idFunding']);
+            $comentario->setIdFunding($row['idFunding']);
             
             array_push($this->list, $comentario);
         }
         mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
+    public function insertComentario() {
+        $this->OpenConnect();
+        
+        $comentario=$this->getComentario();
+        $idUsuario=$this->getIdUsuario();
+        $idFunding=$this->getIdFunding();
+        
+        $sql = "call  spInsertComentario('$comentario', $idUsuario, $idFunding)";
+        
+        if ($this->link->query($sql)>=1) { // insert egiten da
+            return "El usuario se ha insertado con exito";
+        }else {
+            return "Fallï¿½ al insertar el usuario: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
         $this->CloseConnect();
     }
 }

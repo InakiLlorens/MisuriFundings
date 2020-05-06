@@ -174,6 +174,27 @@ class crowdfundingModel extends crowdfundingClass {
         
         $this->CloseConnect();
     }
+    
+    public function selectFundingByName($nombre) {
+        $this->OpenConnect();  //Abrir conexión
+
+        $sql = "CALL spFundingByName('$nombre');"; //Sentencia SQL
+        
+        $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
+        
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            
+            $funding=new crowdfundingModel();
+            
+            $funding->setId($row['id']);
+            
+            return $funding->getId();
+        }
+        
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
     function countVotes(){
         for ($i = 0; $i < sizeof($this->getList()); $i++) {
             $votosPositivos=0;
