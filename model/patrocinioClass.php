@@ -33,7 +33,7 @@ class patrocinioClass {
         $this->idFunding = $idFunding;
     }
 
-    function setIdContribucion($idContribucionl) {
+    function setIdContribucion($idContribucion) {
         $this->idContribucion = $idContribucion;
     }    
 
