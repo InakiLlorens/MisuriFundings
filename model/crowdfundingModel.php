@@ -1,204 +1,97 @@
-<?php
-include_once 'connect_data.php';
-include_once 'crowdfundingClass.php';
-include_once 'votoModel.php';
-
-class crowdfundingModel extends crowdfundingClass {
-    private $link;
-    private $list=array();
-    private $listVotos= array();
-    private $votado; //si el usuario lo ha votado o no
-    private $votosPositivos;
-    private $votosNegativos;
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misuri fundings</title>
     
-    /**
-     * @return mixed
-     */
-    public function getVotosPositivos()
-    {
-        return $this->votosPositivos;
-    }
-    public function getList()
-    {
-        return $this->list;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getVotosNegativos()
-    {
-        return $this->votosNegativos;
-    }
-
-    /**
-     * @param mixed $votosPositivos
-     */
-    public function setVotosPositivos($votosPositivos)
-    {
-        $this->votosPositivos = $votosPositivos;
-    }
-
-    /**
-     * @param mixed $votosNegativos
-     */
-    public function setVotosNegativos($votosNegativos)
-    {
-        $this->votosNegativos = $votosNegativos;
-    }
-
-    /**
-     * @return multitype:
-     */
-    public function getListVotos()
-    {
-        return $this->listVotos;
-    }
-
-    /**
-     * @param multitype: $listVotos
-     */
-    public function setListVotos($listVotos)
-    {
-        $this->listVotos = $listVotos;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getVotado()
-    {
-        return $this->votado;
-    }
-
-    /**
-     * @param mixed $votado
-     */
-    public function setVotado($votado)
-    {
-        $this->votado = $votado;
-    }
-
-    public function OpenConnect() {
-        $konDat = new connect_data();
-        
-        try {
-            $this->link = new mysqli($konDat->host, $konDat->userbbdd, $konDat->passbbdd, $konDat->ddbbname);        
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
-        
-        $this->link->set_charset("utf8"); 
-    }
-
-    public function CloseConnect() {
-        //mysqli_close ($this->link);
-        
-        $this->link->close();
-    }
-
-    public function setList() {
-        $this->OpenConnect();  //Abrir conexi贸n
-        
-        $sql = "CALL spOrderByVoto();"; //Sentencia SQL
-        
-        $result = $this->link->query($sql); //Se guarda la informaci贸n solicitada a la bbdd
-        
-        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            
-            $funding=new crowdfundingModel();
-            
-            $funding->setId($row['id']);
-            $funding->setNombre($row['nombre']);
-            $funding->setDescripcion($row['descripcion']);
-            $funding->setDineroR($row['dineroR']);
-            $funding->setDineroO($row['dineroO']);
-            $funding->setFechaFin($row['fechaFin']);
-            $funding->setImagen($row['imagen']);
-            
-            $newVotos= new votoModel();
-            $newVotos->setIdFunding($funding->getId());
-            
-            $funding->setVotado($newVotos->setListByFundingId());
-            $funding->setListVotos($newVotos->getList());
-       
-            array_push($this->list, $funding);
-        }
-        
-        mysqli_free_result($result);
-        $this->CloseConnect();
-    }
+    <!--------------css------------------------>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     
-    public function selectFundingById($idFunding) {
-        $this->OpenConnect();  //Abrir conexi贸n
-        
-        $sql = "CALL spFundingById($idFunding);"; //Sentencia SQL
-        
-        $result = $this->link->query($sql); //Se guarda la informaci贸n solicitada a la bbdd
-        
-        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            
-            $funding=new crowdfundingModel();
-            
-            $funding->setId($row['id']);
-            $funding->setNombre($row['nombre']);
-            $funding->setDescripcion($row['descripcion']);
-            $funding->setDineroR($row['dineroR']);
-            $funding->setDineroO($row['dineroO']);
-            $funding->setFechaFin($row['fechaFin']);
-            $funding->setImagen($row['imagen']);
-            
-            array_push($this->list, $funding);
-        }
-        
-        mysqli_free_result($result);
-        $this->CloseConnect();
-    }
-    
-    function countVotes(){
-        for ($i = 0; $i < sizeof($this->getList()); $i++) {
-            $votosPositivos=0;
-            $votosNegativos=0;
-            $votosList=$this->getList()[$i]->getListVotos();
-            for ($j = 0; $j < sizeof($votosList); $j++) {
-                if ($votosList[$j]->getPositivo()==1){
-                    $votosPositivos++;
-                }
-                else{
-                    $votosNegativos++;
-                }
-            }
-            $this->getList()[$i]->setVotosPositivos($votosPositivos);
-            $this->getList()[$i]->setVotosNegativos($votosNegativos);
-        }
-    }
-    
-    function getListJsonString() {
-        $arr=array();
-         
-        foreach ($this->list as $object) {           
-            $vars = get_object_vars($object);
-            $arrVotos=array();
-            foreach($object->getListVotos() as $objectVoto){
-                $varsVoto = $objectVoto->getObjectVars();
-                array_push($arrVotos, $varsVoto);
-            }
-            $vars["listVotos"]=$arrVotos;
+    <!--------------Scripts------------------------>
+  	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-            array_push($arr, $vars);
-        }
-        return $arr;
-    }
-    
-    function getListJsonStringSimple() {        
-        $arr=array();
-        
-        foreach ($this->list as $object) {
-            $vars = $object->getObjectVars();
-            
-            array_push($arr, $vars);
-        }
-        return json_encode($arr);
-    }
-}
-?>
+	<script src="js/main.js"></script>
+</head>
+<body>
+	<!-------------------------------nav---------------------------------------------->
+	<div class="header">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">Fundings</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+		  
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			  <ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+				  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="#">Link</a>
+				</li>
+				<li class="nav-item dropdown">
+				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Dropdown
+				  </a>
+				  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="#">Action</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Something else here</a>
+				  </div>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+				</li>
+			  </ul>
+			  <form class="form-inline my-2 my-lg-0">
+			  	<a href="vNewFunding.html" type="button" class="btn btn-info formBtn mr-2" id="newFundingButton">Nuevo funding</a>
+				<button type="button" class="btn btn-info formBtn" id="logoutButton">Cerrar Sesi髇</button>
+			  </form>
+			</div>
+		  </nav>
+	</div>
+
+	<div class="pageBody">
+	<!--------------------------card grande---------------------->	
+		<div class="card mainCard" >
+			<div class="row no-gutters">
+			  <div class="col-md-4">
+				<img src="..." class="card-img" alt="...">
+			  </div>
+			  <div class="col-md-8">
+				<div class="card-body">
+				  <h5 class="card-title">Card title</h5>
+				  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>				
+				</div>
+			  </div>
+			</div>
+		  </div>
+		  <!-----------------------------cards medianos----------->
+		  <div class="card-group">
+			<div class="card secondaryCard">
+			  <img src="..." class="card-img-top" alt="...">
+			  <div class="card-body">
+		
+				<h5 class="card-title">Card title</h5>
+				<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+			  </div>
+			</div>
+			<div class="card secondaryCard">
+			  <img src="..." class="card-img-top" alt="...">
+			  <div class="card-body">
+				<h5 class="card-title">Card title</h5>
+				<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+				<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+			  </div>
+			</div>
+			</div>
+	</div>
+</body>
+</html>
