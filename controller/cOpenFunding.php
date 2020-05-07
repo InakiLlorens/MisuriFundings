@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$idFunding = filter_input(INPUT_GET, "idFunding");
+$idFunding = filter_input(INPUT_POST, "idFunding");
 
 $_SESSION["idFunding"]=$idFunding;
 

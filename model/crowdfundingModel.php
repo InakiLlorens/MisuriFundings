@@ -135,20 +135,24 @@ class crowdfundingModel extends crowdfundingClass {
         $sql = "CALL spFundingById($idFunding);"; //Sentencia SQL
         
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
-        
+     
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             
-            $funding=new crowdfundingModel();
+          
             
-            $funding->setId($row['id']);
-            $funding->setNombre($row['nombre']);
-            $funding->setDescripcion($row['descripcion']);
-            $funding->setDineroR($row['dineroR']);
-            $funding->setDineroO($row['dineroO']);
-            $funding->setFechaFin($row['fechaFin']);
-            $funding->setImagen($row['imagen']);
+            $this->setId($row['id']);
+            $this->setNombre($row['nombre']);
+            $this->setDescripcion($row['descripcion']);
+            $this->setDineroR($row['dineroR']);
+            $this->setDineroO($row['dineroO']);
+            $this->setFechaFin($row['fechaFin']);
+            $this->setImagen($row['imagen']);
+            $newVotos= new votoModel();
+            $newVotos->setIdFunding($this->getId());
             
-            array_push($this->list, $funding);
+            $this->setVotado($newVotos->setListByFundingId());
+            $this->setListVotos($newVotos->getList());
+       
         }
         
         mysqli_free_result($result);
@@ -212,6 +216,23 @@ class crowdfundingModel extends crowdfundingClass {
             $this->getList()[$i]->setVotosNegativos($votosNegativos);
         }
     }
+    function countThisVotes(){
+    
+            $votosPositivos=0;
+            $votosNegativos=0;
+            $votosList=$this->getListVotos();
+            for ($j = 0; $j < sizeof($votosList); $j++) {
+                if ($votosList[$j]->getPositivo()==1){
+                    $votosPositivos++;
+                }
+                else{
+                    $votosNegativos++;
+                }
+            }
+            $this->setVotosPositivos($votosPositivos);
+            $this->setVotosNegativos($votosNegativos);
+        }
+    
     
     function getListJsonString() {
         $arr=array();
@@ -230,15 +251,11 @@ class crowdfundingModel extends crowdfundingClass {
         return $arr;
     }
     
-    function getListJsonStringSimple() {        
-        $arr=array();
-        
-        foreach ($this->list as $object) {
-            $vars = $object->getObjectVars();
-            
-            array_push($arr, $vars);
-        }
-        return json_encode($arr);
+    function getThisJsonString() {        
+    
+            $vars = $this->getObjectVars();
+          
+        return $vars;
     }
 }
 ?>
