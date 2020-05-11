@@ -1,24 +1,26 @@
+cInsertFunding
+
 <?php
 include_once ("../model/crowdfundingModel.php");
 include_once ("../model/comentarioModel.php");
 
-$nombre = filter_input(INPUT_POST, "nombre");
+$nombreFunding = filter_input(INPUT_POST, "nombreFunding");
 $meta = filter_input(INPUT_POST, "meta");
-$descripcion = filter_input(INPUT_POST, "descripcion");
+$descripcionFunding = filter_input(INPUT_POST, "descripcionFunding");
 $comentario = filter_input(INPUT_POST, "comentario");
 $date = filter_input(INPUT_POST, "date");
 $imagen = filter_input(INPUT_POST, "imagen");
 
 $crowdfundingModel = new crowdfundingModel();
 
-$crowdfundingModel->setNombre($nombre);
+$crowdfundingModel->setNombre($nombreFunding);
 $crowdfundingModel->setDineroO($meta);
-$crowdfundingModel->setDescripcion($descripcion);
+$crowdfundingModel->setDescripcion($descripcionFunding);
 $crowdfundingModel->setFechaFin($date);
 $crowdfundingModel->setImagen($imagen);
 
 $crowdfundingModel->insertFunding();
-$idFunding=$crowdfundingModel->selectFundingByName($nombre);
+$idFunding=$crowdfundingModel->selectFundingByName($nombreFunding);
 
 $comentarioModel = new comentarioModel();
 

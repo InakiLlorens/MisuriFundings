@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function() {
 	//------------------Comprobar login-------------------------//	
 	$.ajax({
 	    url:'controller/cLoginCheck.php',
@@ -38,8 +38,8 @@ $( document ).ready(function() {
         $(this).parent().slideUp();
         $("#loginForm").slideDown();
         $("#alertContrasenas").slideUp();
-			$("#registerPassword1").css("border", "1px solid #ced4da");
-			$("#registerPassword2").css("border", "1px solid #ced4da");
+		$("#registerPassword1").css("border", "1px solid #ced4da");
+		$("#registerPassword2").css("border", "1px solid #ced4da");
     });
 
     $("#loginButton").on("click", function() {
@@ -78,21 +78,19 @@ $( document ).ready(function() {
 			$("#registerPassword1").css("border", "1px solid #fc3a28");
 			$(this).css("border", "1px solid #fc3a28");
 			$("#alertContrasenas").slideDown();
-
-		}
-		else {
+		}else {
 			$("#alertContrasenas").slideUp();
 			$("#registerPassword1").css("border", "1px solid #ced4da");
 			$(this).css("border", "1px solid #ced4da");
 		}
 	});
+    
 	$("#registerPassword1").on("focusout", function () {
 		if ($(this).val() == $("#registerPassword2").val()) {
 			$("#alertContrasenas").slideUp();
 			$("#registerPassword2").css("border", "1px solid #ced4da");
 			$(this).css("border", "1px solid #ced4da");
 		}
-
     });
 
     $("#registerButton").on("click", function() {
@@ -123,10 +121,8 @@ $( document ).ready(function() {
 	                alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	            }
 	        });
-        }
-        else{
+        }else {
             alert("rellena todos los campos correctamente");
         }
     });
-
 });

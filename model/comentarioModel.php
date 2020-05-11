@@ -5,25 +5,25 @@ include_once 'comentarioClass.php';
 class comentarioModel extends comentarioClass {
     private $link;
     private $list=array();
-
+    
     public function OpenConnect() {
         $konDat = new connect_data();
         
         try {
-            $this->link = new mysqli($konDat->host, $konDat->userbbdd, $konDat->passbbdd, $konDat->ddbbname);        
+            $this->link = new mysqli($konDat->host, $konDat->userbbdd, $konDat->passbbdd, $konDat->ddbbname);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
         
-        $this->link->set_charset("utf8"); 
+        $this->link->set_charset("utf8");
     }
-
+    
     public function CloseConnect() {
         //mysqli_close ($this->link);
         
         $this->link->close();
     }
-
+    
     public function setList() {
         $this->OpenConnect();  //Abrir conexión
         
@@ -56,9 +56,9 @@ class comentarioModel extends comentarioClass {
         $sql = "call  spInsertComentario('$comentario', $idUsuario, $idFunding)";
         
         if ($this->link->query($sql)>=1) { // insert egiten da
-            return "El usuario se ha insertado con exito";
+            return "El comentario se ha insertado con exito";
         }else {
-            return "Fallï¿½ al insertar el usuario: (" . $this->link->errno . ") " . $this->link->error;
+            return "Fallï¿½ al insertar el comentario: (" . $this->link->errno . ") " . $this->link->error;
         }
         
         $this->CloseConnect();

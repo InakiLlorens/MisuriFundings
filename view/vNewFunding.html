@@ -20,14 +20,14 @@
 <body>
     <div class="background"></div>
     
-    <div class="centerContainer">
-    <h1>NUEVO FUNDING</h1>
-    <hr>               
-	    <form id="newFundingForm">
+    <div class="centerContainer">                
+		<form id="newFundingForm">
+	    	<h1>NUEVO FUNDING</h1>
+    		<hr>
 	        <div class="form-row">
 	            <div class="form-group col-md-6">
-	                <label for="nombre">Nombre</label>
-	                <input type="text" class="form-control" id="newNombre" placeholder="Pokemon Ranger Switch">
+	                <label for="nombreFunding">Nombre</label>
+	                <input type="text" class="form-control" id="newNombreFunding" placeholder="Pokemon Ranger Switch">
 	            </div>
 	            <div class="form-group col-md-6">
 	                <label for="meta">Meta (€)</label>
@@ -35,8 +35,8 @@
 	            </div>
 	        </div>
 	        <div class="form-group">
-	            <label for="descripcion">Descripción</label>
-	            <textarea class="form-control" id="newDescripcion" placeholder="Este juego será la polla cuando salga el año que viene, tal vez dentro de dos por el coronavirus. F en el chat."></textarea>
+	            <label for="descripcionFunding">Descripción</label>
+	            <textarea class="form-control" id="newDescripcionFunding" placeholder="Este juego será la polla cuando salga el año que viene, tal vez dentro de dos por el coronavirus. F en el chat."></textarea>
 	        </div>
 	        <div class="form-group">
 	            <label for="comentario">Comentario</label>
@@ -54,10 +54,41 @@
 	        </div>
 	        <div class="form-row">
 	        	<div class="col-md-6">
-	            	<button type="button" class="btn btn-info formBtn" id="insertFundingButton">Crear funding</button>
+	            	<button type="button" class="btn btn-info formBtn" id="saveFundingButton">Crear funding</button>
 	        	</div>
 	        	<div class="col-md-6">
-	            	<a href="vMain.html" type="button" class="btn btn-secondary formBtn">Volver</a>
+	            	<a href="vMain.html" type="button" class="btn btn-secondary formBtn">Salir</a>
+	        	</div>
+	        </div> 
+	    </form>
+	    
+	    <form id="newContribucionForm">
+	    	<h1>NUEVA RECOMPENSA</h1>
+    		<hr>
+	        <div class="form-row">
+	            <div class="form-group col-md-6">
+	                <label for="nombreContribucion">Nombre</label>
+	                <input type="text" class="form-control" id="newNombreContribucion" placeholder="Recompensa base">
+	            </div>
+	            <div class="form-group col-md-6">
+	                <label for="precio">Precio (€)</label>
+	                <input type="number" class="form-control" id="newPrecio" placeholder="20">
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label for="descripcionContribucion">Descripción</label>
+	            <textarea class="form-control" id="newDescripcionContribucion" placeholder="Recompensa base."></textarea>
+	        </div>
+	        <div class="form-group">
+	            <label for="recompensa">Recompensa</label>
+	            <textarea class="form-control" id="newRecompensa" placeholder="Acceso a la beta previa, juego, nombre en los créditos."></textarea>
+	        </div>
+	        <div class="form-row">
+	        	<div class="col-md-6">
+	            	<button type="button" class="btn btn-info formBtn" id="insertFundingButton">Añadir recompensas</button>
+	        	</div>
+	        	<div class="col-md-6">
+	            	<button type="button" class="btn btn-secondary formBtn" id="volverButton">Volver</button>
 	        	</div>
 	        </div> 
 	    </form>
