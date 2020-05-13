@@ -7,6 +7,11 @@ class crowdfundingModel extends crowdfundingClass {
     private $link;
     private $list=array();
     private $listVotos= array();
+    
+    //voto positivo = 1
+    //voto negativo = 0
+    //no votado = -1
+    
     private $votado; //si el usuario lo ha votado o no
     private $votosPositivos;
     private $votosNegativos;
@@ -218,7 +223,6 @@ class crowdfundingModel extends crowdfundingClass {
                 $votosNegativos++;
             }
         }
-        
         $this->setVotosPositivos($votosPositivos);
         $this->setVotosNegativos($votosNegativos);
     }
@@ -242,7 +246,14 @@ class crowdfundingModel extends crowdfundingClass {
     
     function getThisJsonString() {
         
-        $vars = $this->getObjectVars();
+        $vars = get_object_vars($this);
+        
+        $arrVotos=array();
+        foreach($this->getListVotos() as $objectVoto){
+            $varsVoto = $objectVoto->getObjectVars();
+            array_push($arrVotos, $varsVoto);
+        }
+        $vars["listVotos"]=$arrVotos;
         
         return $vars;
     }

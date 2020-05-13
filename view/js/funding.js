@@ -5,7 +5,10 @@ $( document ).ready(function() {
 	    method:'GET',
 	    dataType:'json',
 	    success: function(response) {
-	        console.log(response)			
+			console.log(response)	
+			htmlzatia="<h3>"+response.dineroO+"</h3>";
+			htmlzatia+="<h3>"+response.dineroR+"</h3>";
+			$(".fundingData").html(htmlzatia);		
 	    },
 	    error: function(xhr) {
 	        alert("An error occured: " + xhr.status + " " + xhr.statusText);

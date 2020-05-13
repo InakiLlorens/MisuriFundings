@@ -1,8 +1,22 @@
 
 .fundingContainer{
+    display: flex;
     margin: auto;
+    padding: 10px;
     margin-top: 10px;
     background-color: white;
     width: 98%;
     height: 800px;
+    justify-content: space-around;
+}
+.fundingContainer img{
+    width: 70%;
+    border-radius: 3px;
+}
+.fundingData{
+    width: 25%;
+    border: 1px solid black;
+}
+.fundingData{
+    padding: 5px;
 }

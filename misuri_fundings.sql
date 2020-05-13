@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-05-2020 a las 17:39:54
--- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
+-- Tiempo de generación: 13-05-2020 a las 09:59:40
+-- Versión del servidor: 10.1.40-MariaDB
+-- Versión de PHP: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -129,8 +129,7 @@ CREATE TABLE `comentario` (
 --
 
 INSERT INTO `comentario` (`id`, `comentario`, `idUsuario`, `idFunding`) VALUES
-(1, 'Un gran trabajo Markel.', 2, 1),
-(2, 'Prueba de los arreglos.', 2, 7);
+(1, 'Un gran trabajo Markel.', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -151,8 +150,7 @@ CREATE TABLE `contribucion` (
 --
 
 INSERT INTO `contribucion` (`id`, `nombre`, `precio`, `descripcion`, `recompensa`) VALUES
-(1, 'Contribución Base', 20, 'La contribución mínima.', 'Un enorme aprobado.'),
-(2, 'Tarifa base', 20, 'Tarifa basica.', 'El jueguito bro.');
+(1, 'Contribución Base', 20, 'La contribución mínima.', 'Un enorme aprobado.');
 
 -- --------------------------------------------------------
 
@@ -180,8 +178,7 @@ INSERT INTO `crowdfunding` (`id`, `nombre`, `descripcion`, `dineroR`, `dineroO`,
 (3, 'secundario', 'descripcion de algo secundario', 200, 300, '0000-00-00', ''),
 (4, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', ''),
 (5, 'secundario', 'descripcion de algo secundario', 200, 300, '2020-04-30', ''),
-(6, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', ''),
-(7, 'Prueba', 'Prueba del push.', 0, 200, '2020-05-11', 'prueba.jpg');
+(6, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', '');
 
 -- --------------------------------------------------------
 
@@ -213,8 +210,7 @@ CREATE TABLE `patrocinio` (
 --
 
 INSERT INTO `patrocinio` (`id`, `idUsuario`, `idFunding`, `idContribucion`) VALUES
-(1, 2, 1, 1),
-(2, 2, 7, 2);
+(1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -363,19 +359,19 @@ ALTER TABLE `actualizacion`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `contribucion`
 --
 ALTER TABLE `contribucion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `crowdfunding`
 --
 ALTER TABLE `crowdfunding`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `galeria`
@@ -387,7 +383,7 @@ ALTER TABLE `galeria`
 -- AUTO_INCREMENT de la tabla `patrocinio`
 --
 ALTER TABLE `patrocinio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `pregunta`
