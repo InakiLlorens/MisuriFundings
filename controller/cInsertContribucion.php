@@ -1,6 +1,5 @@
 <?php
 include_once ("../model/contribucionModel.php");
-include_once ("../model/patrocinioModel.php");
 include_once ("../model/crowdfundingModel.php");
 
 $nombreContribucion = filter_input(INPUT_POST, "nombreContribucion");
@@ -17,19 +16,10 @@ $contribucionModel->setDescripcion($descripcionContribucion);
 $contribucionModel->setRecompensa($recompensa);
 
 $contribucionModel->insertContribucion();
-$idContribucion=$contribucionModel->selectContribucionByName($nombreContribucion);
 
 $crowdfundingModel = new crowdfundingModel();
 
 $idFunding=$crowdfundingModel->selectFundingByName($nombreFunding);
-
-$patrocinioModel = new patrocinioModel();
-
-$patrocinioModel->setIdUsuario($_SESSION["id"]);
-$patrocinioModel->setIdFunding($idFunding);
-$patrocinioModel->setIdContribucion($idContribucion);
-
-$patrocinioModel->insertPatrocinio();
 
 echo($idFunding);
 ?>

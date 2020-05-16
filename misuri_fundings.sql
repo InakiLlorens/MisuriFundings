@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2020 a las 09:59:40
--- Versión del servidor: 10.1.40-MariaDB
--- Versión de PHP: 7.3.5
+-- Tiempo de generación: 16-05-2020 a las 19:31:15
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -53,9 +53,6 @@ SELECT * FROM `usuario`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spAllVotos` ()  NO SQL
 SELECT * FROM `voto`$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spContribucionByName` (IN `inNombre` VARCHAR(50))  NO SQL
-SELECT * FROM `contribucion` WHERE contribucion.nombre=inNombre$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteVoto` (IN `inIdFunding` INT, IN `inIdUsuario` INT)  NO SQL
 DELETE FROM `voto` WHERE idFunding=inIdFunding AND idUsuario=inIdUsuario$$
 
@@ -63,7 +60,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `spFundingById` (IN `inIdFunding` IN
 SELECT * FROM `crowdfunding` WHERE crowdfunding.id=inIdFunding$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFundingByName` (IN `inNombre` VARCHAR(50))  NO SQL
-SELECT * FROM `crowdfunding` WHERE crowdfunding.nombre=inNombre$$
+SELECT * FROM `crowdfunding` WHERE crowdfunding.nombre=inNombre ORDER BY crowdfunding.id DESC LIMIT 1$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertComentario` (IN `inComentario` VARCHAR(250), IN `inIdUsuario` INT(11), IN `inIdFunding` INT(11))  NO SQL
 INSERT INTO `comentario`(`comentario`, `idUsuario`, `idFunding`) VALUES (inComentario,inIdUsuario,inIdFunding)$$
@@ -129,7 +126,8 @@ CREATE TABLE `comentario` (
 --
 
 INSERT INTO `comentario` (`id`, `comentario`, `idUsuario`, `idFunding`) VALUES
-(1, 'Un gran trabajo Markel.', 2, 1);
+(1, 'Un gran trabajo Markel.', 2, 1),
+(6, 'Funding de prueba.', 2, 11);
 
 -- --------------------------------------------------------
 
@@ -150,7 +148,8 @@ CREATE TABLE `contribucion` (
 --
 
 INSERT INTO `contribucion` (`id`, `nombre`, `precio`, `descripcion`, `recompensa`) VALUES
-(1, 'Contribución Base', 20, 'La contribución mínima.', 'Un enorme aprobado.');
+(1, 'Contribución Base', 20, 'La contribución mínima.', 'Un enorme aprobado.'),
+(6, 'Recompensa base', 20, 'Recompesa mínima.', 'Juego');
 
 -- --------------------------------------------------------
 
@@ -178,7 +177,8 @@ INSERT INTO `crowdfunding` (`id`, `nombre`, `descripcion`, `dineroR`, `dineroO`,
 (3, 'secundario', 'descripcion de algo secundario', 200, 300, '0000-00-00', ''),
 (4, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', ''),
 (5, 'secundario', 'descripcion de algo secundario', 200, 300, '2020-04-30', ''),
-(6, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', '');
+(6, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', ''),
+(11, 'Prueba', 'Nuevo funding.', 0, 100, '2020-05-16', 'caricia.jpg');
 
 -- --------------------------------------------------------
 
@@ -210,7 +210,10 @@ CREATE TABLE `patrocinio` (
 --
 
 INSERT INTO `patrocinio` (`id`, `idUsuario`, `idFunding`, `idContribucion`) VALUES
-(1, 2, 1, 1);
+(1, 2, 1, 1),
+(4, 2, 1, 1),
+(5, 2, 5, 1),
+(15, 2, 11, 1);
 
 -- --------------------------------------------------------
 
@@ -275,7 +278,8 @@ INSERT INTO `voto` (`id`, `positivo`, `idUsuario`, `idFunding`) VALUES
 (1, 1, 2, 1),
 (2, 1, 2, 1),
 (4, 1, 2, 3),
-(21, 1, 2, 5);
+(21, 1, 2, 5),
+(27, 0, 2, 11);
 
 --
 -- Índices para tablas volcadas
@@ -359,19 +363,19 @@ ALTER TABLE `actualizacion`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `contribucion`
 --
 ALTER TABLE `contribucion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `crowdfunding`
 --
 ALTER TABLE `crowdfunding`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `galeria`
@@ -383,7 +387,7 @@ ALTER TABLE `galeria`
 -- AUTO_INCREMENT de la tabla `patrocinio`
 --
 ALTER TABLE `patrocinio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `pregunta`
@@ -401,7 +405,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `voto`
 --
 ALTER TABLE `voto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Restricciones para tablas volcadas

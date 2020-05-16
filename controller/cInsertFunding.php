@@ -1,5 +1,3 @@
-cInsertFunding
-
 <?php
 include_once ("../model/crowdfundingModel.php");
 include_once ("../model/comentarioModel.php");

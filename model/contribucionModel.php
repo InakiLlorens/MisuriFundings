@@ -65,25 +65,5 @@ class contribucionModel extends contribucionClass {
         
         $this->CloseConnect();
     }
-    
-    public function selectContribucionByName($nombreContribucion) {
-        $this->OpenConnect();  //Abrir conexión
-        
-        $sql = "CALL spContribucionByName('$nombreContribucion');"; //Sentencia SQL
-        
-        $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
-        
-        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            
-            $contribucion=new contribucionModel();
-            
-            $contribucion->setId($row['id']);
-            
-            return $contribucion->getId();
-        }
-        
-        mysqli_free_result($result);
-        $this->CloseConnect();
-    }
 }
 ?>

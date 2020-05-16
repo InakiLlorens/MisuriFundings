@@ -67,7 +67,6 @@ $(document).ready(function() {
 });
 
 function insertContribucion(nombreContribucion, precio, descripcionContribucion, recompensa, nombreFunding) {
-	alert(nombreFunding);
 	if (nombreContribucion.length!=0 && precio.length!=0 && descripcionContribucion.length!=0 && recompensa.length!=0) {
 		$.ajax({
 	        url:'../controller/cInsertContribucion.php',
@@ -80,7 +79,7 @@ function insertContribucion(nombreContribucion, precio, descripcionContribucion,
 	            nombreFunding: nombreFunding,
 	        },
 	        success:function(response){
-	        	alert("Nuevo proyecto añadidos");        	
+	        	alert("Nuevo proyecto añadido");        	
 	        	window.location = "vMain.html";
 	        },
 	        error: function(xhr) {

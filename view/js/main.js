@@ -137,11 +137,8 @@ $(document).ready(function () {
 					</div>
 					</div>
 					
-					</div>
-
-				  `;
+					</div>`;
 					}
-
 				}
 				//----------------------------------------------------------------------------------------------//
 				htmlzatia += "</div></div>";
@@ -169,9 +166,7 @@ $(document).ready(function () {
 							alert("An error occured: " + xhr.status + " " + xhr.statusText);
 						}
 					});
-
-				}
-				else if (!$(this).hasClass("activoNegativo")) {
+				}else if (!$(this).hasClass("activoNegativo")) {
 					//si cambia el voto
 
 					$(this).addClass("activoNegativo");
@@ -187,9 +182,7 @@ $(document).ready(function () {
 							alert("An error occured: " + xhr.status + " " + xhr.statusText);
 						}
 					});
-				}
-
-				else {
+				}else {
 					//si quita el voto que ya tiene
 					$(this).removeClass("activoNegativo");
 					$.ajax({
@@ -226,9 +219,7 @@ $(document).ready(function () {
 							alert("An error occured: " + xhr.status + " " + xhr.statusText);
 						}
 					});
-
-				}
-				else if (!$(this).hasClass("activoPositivo")) {
+				}else if (!$(this).hasClass("activoPositivo")) {
 					//si cambia el voto
 
 					$(this).addClass("activoPositivo");
@@ -244,9 +235,7 @@ $(document).ready(function () {
 							alert("An error occured: " + xhr.status + " " + xhr.statusText);
 						}
 					});
-				}
-
-				else {
+				}else {
 					//si quita el voto que ya tiene
 					$(this).removeClass("activoPositivo");
 					$.ajax({
@@ -261,32 +250,29 @@ $(document).ready(function () {
 						}
 					});
 				}
-
 			});
-
 		},
 		error: function (xhr) {
 			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 		}
 	});
 
-
-//-----------------------Cargar fundings----------------------------------//
-function cargarFunding() {
-	$(".botonFunding").click(function () {
-		var id = $(this).data("idfunding");
-		//console.log(id);
-		$.ajax({
-			url: '../controller/cOpenFunding.php',
-			method: 'POST',
-			data: { idFunding: id },
-			success: function (response) {
-				console.log(response);
-			},
-			error: function (xhr) {
-				alert("An error occured: " + xhr.status + " " + xhr.statusText);
-			}
+	//-----------------------Cargar fundings----------------------------------//
+	function cargarFunding() {
+		$(".botonFunding").click(function () {
+			var id = $(this).data("idfunding");
+			//console.log(id);
+			$.ajax({
+				url: '../controller/cOpenFunding.php',
+				method: 'POST',
+				data: { idFunding: id },
+				success: function (response) {
+					console.log(response);
+				},
+				error: function (xhr) {
+					alert("An error occured: " + xhr.status + " " + xhr.statusText);
+				}
+			});
 		});
-	});
-}
+	}
 });

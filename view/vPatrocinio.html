@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misuri fundings</title>
+    
+    <!--------------css------------------------>
+    <link rel="stylesheet" href="css/patrocinio.css">
+    <link rel="stylesheet" href="css/tarjeta.css">
+  	<link rel="stylesheet" href="css/tarjeta2.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
+    <!--------------Scripts------------------------>
+  	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script src="js/jquery.payform.min.js"></script>
+  	<script src="js/pago.js"></script>
+	<script src="js/patrocinio.js"></script>
+</head>
+<body>
+	<div class="background"></div>
+
+	<div class="container">
+    	<form id="newContribucion">
+      		<div class="creditCardForm">
+        		<div class="payment">
+					<div class="form-group owner">
+            			<label for="owner">Propietario</label>
+            			<input type="text" class="form-control" id="owner" name="inOwner">
+				    </div>
+				    <div class="form-group CVV">
+				    	<label for="cvv">CVC</label>
+				    	<input type="text" class="form-control" id="cvv" name="inCvv">
+				    </div>
+				    <div class="form-group" id="card-number-field">
+				    	<label for="cardNumber">Numero de tarjeta</label>
+				    	<input type="text" class="form-control" id="cardNumber" name="inCardNumber">
+				    </div>
+				    <div class="form-group" id="expiration-date">
+				    	<label>Fecha de caducidad</label>
+				    	<select id="mes" name="inMes">
+					        <option value="">...</option>
+					        <option value="01">January</option>
+					        <option value="02">February </option>
+					        <option value="03">March</option>
+					        <option value="04">April</option>
+					        <option value="05">May</option>
+					        <option value="06">June</option>
+					        <option value="07">July</option>
+					        <option value="08">August</option>
+					        <option value="09">September</option>
+					        <option value="10">October</option>
+					        <option value="11">November</option>
+					        <option value="12">December</option>
+				      	</select>
+				      	<select id="year" name="inYear">
+					        <option value="">...</option>
+					        <option value="20">2020</option>
+					        <option value="21">2021</option>
+					        <option value="22">2022</option>
+					        <option value="23">2023</option>
+					        <option value="24">2024</option>
+					        <option value="25">2025</option>
+				      	</select>
+				    </div>
+				    <div class="form-group" id="credit_cards">
+				    	<img src="img/amex.jpg" id="amex">
+				    	<img src="img/mastercard.jpg" id="mastercard">
+				    	<img src="img/visa.jpg" id="visa">
+				    </div>
+				    <div class="form-group" id="pay-now">
+				    	<button type="submit" class="btn btn-default bg-primary" id="insertPatrocinioButton" disabled>Confirmar</button>
+				    	<button type="button" class="btn btn-default bg-secondary" id="cancelarButton">Cancelar</button>
+				    </div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

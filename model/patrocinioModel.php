@@ -53,7 +53,7 @@ class patrocinioModel extends patrocinioClass {
         $idFunding=$this->getIdFunding();
         $idContribucion=$this->getIdContribucion();
         
-        $sql = "call  spInsertPatrocinio($idUsuario, $idFunding, $idContribucion)";
+        $sql = "call spInsertPatrocinio($idUsuario, $idFunding, $idContribucion)";
         
         if ($this->link->query($sql)>=1) { // insert egiten da
             return "El patrocinio se ha insertado con exito";
