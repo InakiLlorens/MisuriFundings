@@ -3,6 +3,7 @@ cInsertFunding
 <?php
 include_once ("../model/crowdfundingModel.php");
 include_once ("../model/comentarioModel.php");
+include_once ("../model/votoModel.php");
 
 $nombreFunding = filter_input(INPUT_POST, "nombreFunding");
 $meta = filter_input(INPUT_POST, "meta");
@@ -29,6 +30,16 @@ $comentarioModel->setIdUsuario($_SESSION["id"]);
 $comentarioModel->setIdFunding($idFunding);
 
 $comentarioModel->insertComentario();
+
+$votoModel = new votoModel();
+
+$positivo = 0;
+
+$votoModel->setPositivo($positivo);
+$votoModel->setIdUsuario($_SESSION["id"]);
+$votoModel->setIdFunding($idFunding);
+
+$votoModel->insertVoto();
 
 echo($idFunding);
 ?>

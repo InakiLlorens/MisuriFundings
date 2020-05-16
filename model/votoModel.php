@@ -40,26 +40,25 @@ class votoModel extends votoClass {
             $voto->setId($row['id']);
             $voto->setPositivo($row['positivo']);
             $voto->setIdUsuario($row['idUsuario']);
-	    $voto->setIdFunding($row['idFunding']);
+	        $voto->setIdFunding($row['idFunding']);
             
             array_push($this->list, $voto);
         }
+        
         mysqli_free_result($result);
         $this->CloseConnect();
     }
-    public function setListByFundingId() {
-        
+    
+    public function setListByFundingId() {       
         $id=$_SESSION["id"];
         $idFunding=$this->getIdFunding();
         $votado=-1;
         $this->OpenConnect();  //Abrir conexión
         
-        
         $sql = "CALL spVotosByIdFunding($idFunding)"; //Sentencia SQL
         
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
-       
-     
+           
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             
             $voto=new votoModel();
@@ -84,32 +83,26 @@ class votoModel extends votoClass {
         
         return $votado;
     }
-
-    
-    
-    public function updateVoto(){
+   
+    public function updateVoto() {
         $positivo=$this->getPositivo();
         $idFunding=$this->getIdFunding();
         $idUser=$this->getIdUsuario();
         $this->OpenConnect();  //Abrir conexión
-        
-        
+               
         $sql = "CALL spUpdateVoto ($positivo,$idFunding, $idUser)"; //Sentencia SQL
      
         echo $sql;
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
-        
-        
-        $this->CloseConnect();
-        
+               
+        $this->CloseConnect();      
     }
     
-    public function deleteVoto(){
+    public function deleteVoto() {
         $idFunding=$this->getIdFunding();
         $idUser=$this->getIdUsuario();
         $this->OpenConnect();  //Abrir conexión
-        
-        
+               
         $sql = "CALL spDeleteVoto ($idFunding, $idUser)"; //Sentencia SQL
         echo $sql;
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
@@ -118,28 +111,21 @@ class votoModel extends votoClass {
         $this->CloseConnect();
         
     }
-    public function insertVoto(){
+    public function insertVoto() {
         $positivo=$this->getPositivo();
         $idFunding=$this->getIdFunding();
         $idUser=$this->getIdUsuario();
         $this->OpenConnect();  //Abrir conexión
-        
-        
+              
         $sql = "CALL spInsertVoto ($positivo,$idUser, $idFunding)"; //Sentencia SQL
 
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
-        
-        
-        $this->CloseConnect();
-        
+                
+        $this->CloseConnect();        
     }
   
-    public function getList()
-    {
+    public function getList() {
         return $this->list;
     }
-
-
-
 }
 ?>

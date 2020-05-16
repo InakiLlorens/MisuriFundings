@@ -97,7 +97,7 @@ class crowdfundingModel extends crowdfundingClass {
     public function setList() {
         $this->OpenConnect();  //Abrir conexión
         
-        $sql = "CALL spOrderByVoto();"; //Sentencia SQL
+        $sql = "CALL spOrderByVoto()"; //Sentencia SQL
         
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
         
@@ -129,7 +129,7 @@ class crowdfundingModel extends crowdfundingClass {
     public function selectFundingById($idFunding) {
         $this->OpenConnect();  //Abrir conexión
         
-        $sql = "CALL spFundingById($idFunding);"; //Sentencia SQL
+        $sql = "CALL spFundingById($idFunding)"; //Sentencia SQL
         
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
         
@@ -176,7 +176,7 @@ class crowdfundingModel extends crowdfundingClass {
     public function selectFundingByName($nombreFunding) {
         $this->OpenConnect();  //Abrir conexión
         
-        $sql = "CALL spFundingByName('$nombreFunding');"; //Sentencia SQL
+        $sql = "CALL spFundingByName('$nombreFunding')"; //Sentencia SQL
         
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
         
@@ -193,7 +193,7 @@ class crowdfundingModel extends crowdfundingClass {
         $this->CloseConnect();
     }
     
-    function countVotes(){
+    public function countVotes() {
         for ($i = 0; $i < sizeof($this->getList()); $i++) {
             $votosPositivos=0;
             $votosNegativos=0;
@@ -211,7 +211,7 @@ class crowdfundingModel extends crowdfundingClass {
         }
     }
     
-    function countThisVotes(){        
+    public function countThisVotes() {        
         $votosPositivos=0;
         $votosNegativos=0;
         $votosList=$this->getListVotos();
