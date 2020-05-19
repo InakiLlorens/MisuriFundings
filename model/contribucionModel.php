@@ -56,7 +56,7 @@ class contribucionModel extends contribucionClass {
         $recompensa=$this->getRecompensa();
         
         $sql = "call  spInsertContribucion('$nombre', $precio, '$descripcion', '$recompensa')";
-        
+    
         if ($this->link->query($sql)>=1) { // insert egiten da
             return "La contribucion se ha insertado con exito";
         }else {

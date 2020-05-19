@@ -1,20 +1,4 @@
 $(document).ready(function() {
-	//------------------Comprobar login-------------------------//	
-	$.ajax({
-	    url:'../controller/cLoginCheck.php',
-	    dataType:'json',
-	    success: function(response) {
-	        console.log(response)
-	        if (response.success == true) {            
-	            console.log(response);
-	        }else {
-	        	window.location = "../index.html";
-            }
-	    },
-	    error: function(xhr) {
-	        alert("An error occured: " + xhr.status + " " + xhr.statusText);
-	    }	    
-    });
 
 	//---------------------------------------------------------//
 

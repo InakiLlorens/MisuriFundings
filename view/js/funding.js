@@ -55,6 +55,15 @@ $( document ).ready(function() {
 			}
 			htmlPreguntas+="</div></div>";
 			htmlPreguntas+='<div class="tab-pane fade show" id="comentarios" role="tabpanel" aria-labelledby="home-tab">';
+			htmlPreguntas+=`<div class=escribirComentario>
+			<div class="textoComentario">
+			<h3>¡Escribe lo que opinas de este funding!</h3>
+			<span>(se respetuoso en todo momento e intenta no ofender a nadie)</span>
+			</div>
+			<textarea>
+			</textarea>
+			<button type="button" class="btn btn-success" data-idFunding=`+response.id+` id="enviarComentario">Enviar</input>
+			</div>`;
 			for (let index = 0; index < response.listComentarios.length; index++) {
 				htmlPreguntas+=`<div class="comentario">
 				<h4>`+response.listComentarios[index].objUser.usuario+`</h3>
@@ -68,6 +77,23 @@ $( document ).ready(function() {
 			htmlPreguntas+='</div>';
 			$(".fundingMoreInfo").html(htmlPreguntas);
 			cargarPago();
+			$("#enviarComentario").on("click", function(){
+				
+				var id= $(this).data("idfunding");
+				var text=$(this).siblings("textarea").val();
+				$.ajax({
+					url: '../controller/cInsertComentario.php',
+					method: 'POST',
+					data: { id: id, text: text },
+					success: function (response) {
+						console.log(response);
+					},
+					error: function (xhr) {
+						alert("An error occured: " + xhr.status + " " + xhr.statusText);
+					}
+				});
+
+			})
 	    },
 	    error: function(xhr) {
 	        alert("An error occured: " + xhr.status + " " + xhr.statusText);

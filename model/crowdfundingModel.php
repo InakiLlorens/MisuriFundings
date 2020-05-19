@@ -11,6 +11,7 @@ class crowdfundingModel extends crowdfundingClass {
     private $listVotos= array();
     private $listPreguntas= array();
     private $listComentarios=array();
+    private $objUsuario;
     //voto positivo = 1
     //voto negativo = 0
     //no votado = -1
@@ -18,8 +19,26 @@ class crowdfundingModel extends crowdfundingClass {
     private $votado; //si el usuario lo ha votado o no
     private $votosPositivos;
     private $votosNegativos;
+    
+    private $miPropiedad;
 
     
+    /**
+     * @return mixed
+     */
+    public function getObjUsuario()
+    {
+        return $this->objUsuario;
+    }
+
+    /**
+     * @param mixed $objUsuario
+     */
+    public function setObjUsuario($objUsuario)
+    {
+        $this->objUsuario = $objUsuario;
+    }
+
     /**
      * @return mixed
      */
@@ -148,9 +167,14 @@ class crowdfundingModel extends crowdfundingClass {
             $funding->setDineroO($row['dineroO']);
             $funding->setFechaFin($row['fechaFin']);
             $funding->setImagen($row['imagen']);
-            
+            $funding->setIdUsuario($row['idUsuario']);
             $newVotos= new votoModel();
             $newVotos->setIdFunding($funding->getId());
+            
+            $newUsuario = new usuarioModel();
+            $newUsuario->setId($funding->getIdUsuario());
+            $newUsuario->setUserById();
+            $funding->setObjUsuario($newUsuario);
             
             $funding->setVotado($newVotos->setListByFundingId());
             $funding->setListVotos($newVotos->getList());
@@ -165,6 +189,22 @@ class crowdfundingModel extends crowdfundingClass {
         $this->CloseConnect();
     }
     
+    /**
+     * @return mixed
+     */
+    public function getMiPropiedad()
+    {
+        return $this->miPropiedad;
+    }
+
+    /**
+     * @param mixed $miPropiedad
+     */
+    public function setMiPropiedad($miPropiedad)
+    {
+        $this->miPropiedad = $miPropiedad;
+    }
+
     public function selectFundingById($idFunding) {
         $this->OpenConnect();  //Abrir conexión
         
@@ -180,7 +220,7 @@ class crowdfundingModel extends crowdfundingClass {
             $this->setDineroO($row['dineroO']);
             $this->setFechaFin($row['fechaFin']);
             $this->setImagen($row['imagen']);
-            
+            $this->setIdUsuario($row['idUsuario']);
             $newVotos= new votoModel();
             $newVotos->setIdFunding($this->getId());
             $this->setVotado($newVotos->setListByFundingId());
@@ -192,6 +232,11 @@ class crowdfundingModel extends crowdfundingClass {
             $newComentario = new comentarioModel();
             $newComentario->setIdFunding($this->getId());
             $newComentario->setListByIdFunding();
+            
+            $newUsuario = new usuarioModel();
+            $newUsuario->setId($this->getIdUsuario());
+            $newUsuario->setUserById();
+            $this->setObjUsuario($newUsuario);
             
             $this->setListVotos($newVotos->getList());
             $this->setListComentarios($newComentario->getList());
@@ -277,6 +322,14 @@ class crowdfundingModel extends crowdfundingClass {
         $this->setVotosPositivos($votosPositivos);
         $this->setVotosNegativos($votosNegativos);
     }
+    public function checkMyProperty($id){
+        if ($this->getObjUsuario()->getId()== $id){
+            $this->setMiPropiedad(true);
+        }
+        else{
+            $this->setMiPropiedad(true);
+        }
+    }
     
     function getListJsonString() {
         $arr=array();
@@ -289,7 +342,7 @@ class crowdfundingModel extends crowdfundingClass {
                 array_push($arrVotos, $varsVoto);
             }
             $vars["listVotos"]=$arrVotos;
-            
+            $vars["objUsuario"]=$object->getObjUsuario()->getObjectVars();
             array_push($arr, $vars);
         }
         return $arr;
@@ -315,6 +368,7 @@ class crowdfundingModel extends crowdfundingClass {
             $varsComentario["objUser"] = $objectComentario->getObjUser()->getObjectVars();
             array_push($arrComentario, $varsComentario);
         }
+        $vars["objUsuario"]=$this->getObjUsuario()->getObjectVars();
         $vars["listComentarios"]=$arrComentario;
         $vars["listPreguntas"]=$arrPreguntas;
         $vars["listVotos"]=$arrVotos;

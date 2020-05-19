@@ -108,7 +108,7 @@ class comentarioModel extends comentarioClass {
         $idFunding=$this->getIdFunding();
         
         $sql = "call  spInsertComentario('$comentario', $idUsuario, $idFunding)";
-        
+
         if ($this->link->query($sql)>=1) { // insert egiten da
             return "El comentario se ha insertado con exito";
         }else {

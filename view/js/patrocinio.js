@@ -5,28 +5,26 @@ $(document).ready(function () {
     $("#mes").on("change", check);
     $("#year").on("change", check);
     
-    //------------------Comprobar login-------------------------//	
-	$.ajax({
-	    url:'../controller/cLoginCheck.php',
-	    dataType:'json',
-	    success: function(response) {
-	        console.log(response)
-	        if (response.success == true) {            
-	            console.log(response);
-	        }else {
-	        	window.location = "../index.html";
-            }
-	    },
-	    error: function(xhr) {
-	        alert("An error occured: " + xhr.status + " " + xhr.statusText);
-	    }	    
-    });
 
 	//---------------------------------------------------------//
     
     $("#insertPatrocinioButton").on("click", function() {
+
+        var owner=$("#owner").on("keyup", check);
+        var CVV=$("#cvv").on("keyup", check);
+        var number=("#cardNumber").on("keyup", check);
+        var mes=$("#mes").on("change", check);
+        var year=$("#year").on("change", check);
     	$.ajax({
             url:'../controller/cInsertPatrocinio.php',
+            method: POST,
+            data: {
+                owner: owner,
+                CVV:CVV,
+                number:number,
+                month:mes,
+                year:year,
+            },
             success:function() {	
             	alert("Pago realizado");
             	window.location = "vMain.html";

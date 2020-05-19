@@ -7,8 +7,27 @@ class crowdfundingClass {
     protected $dineroO; //Dinero Objetivo: el dinero que se quiere conseguir
     protected $fechaFin; //Fecha límite para recaudar el dinero
     protected $imagen; //Imagen de ejemplo visual del proyecto
+    protected $idUsuario; //el usuario que ha creado el funding
     
     
+    /**
+     * @return mixed
+     */
+  
+    /**
+     * @param mixed $idUser
+     */
+   
+
+    /**
+     * @return mixed
+     */
+    
+    /**
+     * @param mixed $idUsuario
+     */
+    
+
     public function getId() {
         return $this->id;
     }
@@ -36,6 +55,12 @@ class crowdfundingClass {
     public function getImagen() {
         return $this->imagen;
     }
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+    
+    
     
 
     public function setId($id) {
@@ -65,6 +90,11 @@ class crowdfundingClass {
     public function setImagen($imagen) {
         $this->imagen = $imagen;
     }
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
+   
  
 
 

@@ -52,8 +52,12 @@ class patrocinioModel extends patrocinioClass {
         $idUsuario=$this->getIdUsuario();
         $idFunding=$this->getIdFunding();
         $idContribucion=$this->getIdContribucion();
+        $CVV=$this->getCVV();
+        $numero=$this->getNumero();
+        $fecha=$this->getFechaCad();
+        $titular=$this->getTitular();
         
-        $sql = "call spInsertPatrocinio($idUsuario, $idFunding, $idContribucion)";
+        $sql = "call spInsertPatrocinio($idUsuario, $idFunding, $idContribucion, $CVV, $numero, $fecha, '$titular')";
         
         if ($this->link->query($sql)>=1) { // insert egiten da
             return "El patrocinio se ha insertado con exito";
