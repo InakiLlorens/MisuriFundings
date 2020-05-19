@@ -9,14 +9,36 @@
     height: 800px;
     justify-content: space-around;
 }
-.fundingContainer img{
+#imgFunding{
     width: 70%;
     border-radius: 3px;
 }
 .fundingData{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     width: 25%;
-    border: 1px solid black;
+    border: 1px solid rgb(226, 226, 226);
+    text-align: center;
 }
 .fundingData{
     padding: 5px;
+}
+.fundingMoreInfo{
+    margin: auto;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: white;
+    width: 98%;
+}
+.dineroO{
+    color: gray;
+}
+.dineroR{
+    color: cadetblue;
+}
+.fechafin{
+    color: rgb(255, 70, 70);
+}
+.comentario{
+    border-top: 1px solid rgb(223, 221, 221);
+    border-bottom: 1px solid rgb(223, 221, 221);
 }

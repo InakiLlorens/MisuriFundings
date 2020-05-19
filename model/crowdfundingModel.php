@@ -2,12 +2,15 @@
 include_once 'connect_data.php';
 include_once 'crowdfundingClass.php';
 include_once 'votoModel.php';
+include_once 'preguntaModel.php';
+include_once 'comentarioModel.php';
 
 class crowdfundingModel extends crowdfundingClass {
     private $link;
     private $list=array();
     private $listVotos= array();
-    
+    private $listPreguntas= array();
+    private $listComentarios=array();
     //voto positivo = 1
     //voto negativo = 0
     //no votado = -1
@@ -15,6 +18,7 @@ class crowdfundingModel extends crowdfundingClass {
     private $votado; //si el usuario lo ha votado o no
     private $votosPositivos;
     private $votosNegativos;
+
     
     /**
      * @return mixed
@@ -41,6 +45,38 @@ class crowdfundingModel extends crowdfundingClass {
         $this->votosPositivos = $votosPositivos;
     }
     
+    /**
+     * @return multitype:
+     */
+    public function getListPreguntas()
+    {
+        return $this->listPreguntas;
+    }
+
+    /**
+     * @return multitype:
+     */
+    public function getListComentarios()
+    {
+        return $this->listComentarios;
+    }
+
+    /**
+     * @param multitype: $listPreguntas
+     */
+    public function setListPreguntas($listPreguntas)
+    {
+        $this->listPreguntas = $listPreguntas;
+    }
+
+    /**
+     * @param multitype: $listComentarios
+     */
+    public function setListComentarios($listComentarios)
+    {
+        $this->listComentarios = $listComentarios;
+    }
+
     /**
      * @param mixed $votosNegativos
      */
@@ -118,6 +154,9 @@ class crowdfundingModel extends crowdfundingClass {
             
             $funding->setVotado($newVotos->setListByFundingId());
             $funding->setListVotos($newVotos->getList());
+
+            
+            
             
             array_push($this->list, $funding);
         }
@@ -144,9 +183,21 @@ class crowdfundingModel extends crowdfundingClass {
             
             $newVotos= new votoModel();
             $newVotos->setIdFunding($this->getId());
-            
             $this->setVotado($newVotos->setListByFundingId());
+            
+            $newPreguntas = new preguntaModel();
+            $newPreguntas->setIdFunding($this->getId());
+            $newPreguntas->setListByFundingId();
+            
+            $newComentario = new comentarioModel();
+            $newComentario->setIdFunding($this->getId());
+            $newComentario->setListByIdFunding();
+            
             $this->setListVotos($newVotos->getList());
+            $this->setListComentarios($newComentario->getList());
+            $this->setListPreguntas($newPreguntas->getList());
+            
+
         }
         
         mysqli_free_result($result);
@@ -253,6 +304,19 @@ class crowdfundingModel extends crowdfundingClass {
             $varsVoto = $objectVoto->getObjectVars();
             array_push($arrVotos, $varsVoto);
         }
+        $arrPreguntas=array();
+        foreach($this->getListPreguntas() as $objectPregunta){
+            $varsPregunta = $objectPregunta->getObjectVars();
+            array_push($arrPreguntas, $varsPregunta);
+        }
+        $arrComentario=array();
+        foreach($this->getListComentarios() as $objectComentario){
+            $varsComentario = $objectComentario->getObjectVars();
+            $varsComentario["objUser"] = $objectComentario->getObjUser()->getObjectVars();
+            array_push($arrComentario, $varsComentario);
+        }
+        $vars["listComentarios"]=$arrComentario;
+        $vars["listPreguntas"]=$arrPreguntas;
         $vars["listVotos"]=$arrVotos;
         
         return $vars;

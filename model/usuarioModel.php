@@ -71,6 +71,24 @@ class usuarioModel extends usuarioClass {
         mysqli_free_result($result);
         $this->CloseConnect();
     }
+    public function setUserById(){
+        $this->OpenConnect();  //Abrir conexión
+        $id=$this->getId();
+        $sql = "CALL spUsuarioById($id)"; //Sentencia SQL
+        
+        $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
+
+        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $this->setId($row['id']);
+            $this->setNombre($row['nombre']);
+            $this->setApellido($row['apellido']);
+            $this->setUsuario($row['usuario']);
+            $this->setContrasena($row['contrasena']);
+            $this->setEmail($row['email']);
+            return true;
+        }
+        
+    }
     public function insertUser(){
         $this->OpenConnect();
         
