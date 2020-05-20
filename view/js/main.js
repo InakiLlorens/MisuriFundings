@@ -14,7 +14,7 @@ $(document).ready(function () {
 						htmlzatia += `<div class="card mainCard" >
 					<div class="row no-gutters">
 					  <div class="col-md-4">
-						<img src="`+ response[index].imagen + `" class="card-img" alt="...">
+						<img src="uploads/`+response[index].imagen+ `" class="card-img" alt="...">
 						<div class="voteContainer" data-idfunding=`+ response[index].id + `>`;
 						if (response[index].votado == 1) {
 							htmlzatia += `<div class="positivo activoPositivo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Thumb_up_icon_2.svg/1200px-Thumb_up_icon_2.svg.png"></div>
@@ -46,8 +46,8 @@ $(document).ready(function () {
 //----------------------SEGUNDO FUNDING CON MAS VOTOS----------------------//
 					else if (index == 1) {
 						htmlzatia += `<div class="card-group">
-				<div class="card secondaryCard">
-				  <img src="`+ response[index].imagen + `" class="card-img-top" alt="...">
+				<div class="card secondaryCard col-md-6">
+				  <img src="uploads/`+ response[index].imagen + `" class="card-img-top" alt="...">
 				  <div class="voteContainer" data-idfunding=`+ response[index].id + `>`;
 						if (response[index].votado == 1) {
 							htmlzatia += `<div class="positivo activoPositivo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Thumb_up_icon_2.svg/1200px-Thumb_up_icon_2.svg.png"></div>
@@ -73,8 +73,8 @@ $(document).ready(function () {
 //----------------------TERCER FUNDING CON MAS VOTOS----------------------//
 					}
 					else if (index == 2) {
-						htmlzatia += `<div class="card secondaryCard">
-				<img src="`+ response[index].imagen + `" class="card-img-top" alt="...">
+						htmlzatia += `<div class="card secondaryCard col-md-6">
+				<img src="uploads/`+ response[index].imagen + `" class="card-img-top" alt="...">
 				<div class="voteContainer" data-idfunding=`+ response[index].id + `>`;
 						if (response[index].votado == 1) {
 							htmlzatia += `<div class="positivo activoPositivo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Thumb_up_icon_2.svg/1200px-Thumb_up_icon_2.svg.png"></div>
@@ -109,11 +109,11 @@ $(document).ready(function () {
 					else {
 						htmlzatia += `
 					
-					<div class="col">
+					<div class="col-md-4">
 
-					<div class="card" style="width: 18rem;">
+					<div class="card">
 					
-					<img src="`+ response[index].imagen + `" class="card-img-top" alt="...">
+					<img src="uploads/`+ response[index].imagen + `" class="card-img-top" alt="...">
 					<div class="voteContainer" data-idfunding=`+ response[index].id + `>`;
 						if (response[index].votado == 1) {
 							htmlzatia += `<div class="positivo activoPositivo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Thumb_up_icon_2.svg/1200px-Thumb_up_icon_2.svg.png"></div>
@@ -261,13 +261,12 @@ $(document).ready(function () {
 	function cargarFunding() {
 		$(".botonFunding").click(function () {
 			var id = $(this).data("idfunding");
-			//console.log(id);
+			
 			$.ajax({
 				url: '../controller/cOpenFunding.php',
 				method: 'POST',
-				data: { idFunding: id },
-				success: function (response) {
-					console.log(response);
+				data: {idFunding: id},
+				success: function () {
 				},
 				error: function (xhr) {
 					alert("An error occured: " + xhr.status + " " + xhr.statusText);

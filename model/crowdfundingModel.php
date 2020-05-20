@@ -21,8 +21,7 @@ class crowdfundingModel extends crowdfundingClass {
     private $votosNegativos;
     
     private $miPropiedad;
-
-    
+   
     /**
      * @return mixed
      */
@@ -241,8 +240,6 @@ class crowdfundingModel extends crowdfundingClass {
             $this->setListVotos($newVotos->getList());
             $this->setListComentarios($newComentario->getList());
             $this->setListPreguntas($newPreguntas->getList());
-            
-
         }
         
         mysqli_free_result($result);
@@ -257,8 +254,9 @@ class crowdfundingModel extends crowdfundingClass {
         $dineroO=$this->getDineroO();
         $fechaFin=$this->getFechaFin();
         $imagen=$this->getImagen();
+        $idUsuario=$this->getIdUsuario();
         
-        $sql = "call  spInsertFunding('$nombre', '$descripcion', $dineroO, '$fechaFin', '$imagen')";
+        $sql = "call  spInsertFunding('$nombre', '$descripcion', $dineroO, '$fechaFin', '$imagen', $idUsuario)";
         
         if ($this->link->query($sql)>=1) { // insert egiten da
             return "El funding se ha insertado con exito";

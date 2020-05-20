@@ -18,7 +18,7 @@ $( document ).ready(function() {
 					  		<a href="vPatrocinio.html" class="btn btn-primary botonPatrocinio" data-idcontribucion=`+ 1 + `>Contribuir</a>
 					  	</div>`;
 			$(".fundingData").html(htmlzatia);
-			$("#imgFunding").attr("src", response.imagen);
+			$("#imgFunding").attr("src", "uploads/"+response.imagen);
 			var htmlPreguntas = `<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
 			  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#preguntas" role="tab" aria-controls="home" aria-selected="true">Preguntas frecuentes</a>
@@ -158,13 +158,12 @@ $( document ).ready(function() {
 function cargarPago() {
 	$(".botonPatrocinio").click(function () {
 		var id = $(this).data("idcontribucion");
-		//console.log(id);
+		
 		$.ajax({
 			url: '../controller/cOpenPago.php',
 			method: 'POST',
 			data: { idcontribucion: id },
-			success: function (response) {
-				console.log(response);
+			success: function () {
 			},
 			error: function (xhr) {
 				alert("An error occured: " + xhr.status + " " + xhr.statusText);

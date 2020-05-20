@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-05-2020 a las 14:17:57
--- Versión del servidor: 10.1.40-MariaDB
--- Versión de PHP: 7.3.5
+-- Tiempo de generación: 20-05-2020 a las 22:26:16
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `misuri_fundings`
 --
+CREATE DATABASE IF NOT EXISTS `misuri_fundings` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `misuri_fundings`;
 
 DELIMITER $$
 --
@@ -71,14 +73,14 @@ SELECT * FROM `crowdfunding` WHERE crowdfunding.nombre=inNombre$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertComentario` (IN `inComentario` VARCHAR(250), IN `inIdUsuario` INT(11), IN `inIdFunding` INT(11))  NO SQL
 INSERT INTO `comentario`(`comentario`, `idUsuario`, `idFunding`) VALUES (inComentario,inIdUsuario,inIdFunding)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertContribucion` (IN `inNombre` VARCHAR(50), IN `inPrecio` INT(11), IN `inDescripcion` VARCHAR(50), IN `inRecompensa` VARCHAR(50))  NO SQL
-INSERT INTO `contribucion`(`nombre`, `precio`, `descripcion`, `recompensa`) VALUES (inNombre,inPrecio,inDescripcion,inRecompensa)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertContribucion` (IN `inNombre` VARCHAR(50), IN `inPrecio` INT(11), IN `inDescripcion` VARCHAR(50), IN `inRecompensa` VARCHAR(50), IN `inIdFunding` INT(11))  NO SQL
+INSERT INTO `contribucion`(`nombre`, `precio`, `descripcion`, `recompensa`, `idFunding`) VALUES (inNombre,inPrecio,inDescripcion,inRecompensa,inIdFunding)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertFunding` (IN `inNombre` VARCHAR(50), IN `inDescripcion` VARCHAR(250), IN `inDineroO` INT(11), IN `inFechaFin` DATE, IN `inImagen` VARCHAR(50))  NO SQL
-INSERT INTO `crowdfunding`(`nombre`, `descripcion`, `dineroO`, `fechaFin`, `imagen`) VALUES (inNombre,inDescripcion,inDineroO,inFechaFin,inImagen)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertFunding` (IN `inNombre` VARCHAR(50), IN `inDescripcion` VARCHAR(250), IN `inDineroO` INT(11), IN `inFechaFin` DATE, IN `inImagen` VARCHAR(50), IN `inIdUsuario` INT(11))  NO SQL
+INSERT INTO `crowdfunding`(`nombre`, `descripcion`, `dineroO`, `fechaFin`, `imagen`, `idUsuario`) VALUES (inNombre,inDescripcion,inDineroO,inFechaFin,inImagen,inIdUsuario)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertPatrocinio` (IN `inIdUsuario` INT(11), IN `inIdFunding` INT(11), IN `inIdContribucion` INT(11), IN `inCVV` INT(3), IN `inNumero` INT(16), IN `inFechaCad` DATE, IN `inTitular` VARCHAR(64))  NO SQL
-INSERT INTO `patrocinio`(`idUsuario`, `idFunding`, `idContribucion`, CVV, numero, fechaCad, titular) VALUES (inIdUsuario,inIdFunding,inIdContribucion, inCVV, inNumero, inFechaCad, inTitular)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertPatrocinio` (IN `inIdUsuario` INT(11), IN `inIdFunding` INT(11), IN `inIdContribucion` INT(11), IN `inCVV` INT(3), IN `inNumero` VARCHAR(128), IN `inFechaCad` DATE, IN `inTitular` VARCHAR(64))  NO SQL
+INSERT INTO `patrocinio`(`idUsuario`, `idFunding`, `idContribucion`, `CVV`, `numero`, `fechaCad`, `titular`) VALUES (inIdUsuario,inIdFunding,inIdContribucion, inCVV, inNumero, inFechaCad, inTitular)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertPregunta` (IN `inPregunta` VARCHAR(50), IN `inRespuesta` VARCHAR(250), IN `inIdFunding` INT)  NO SQL
 INSERT INTO `pregunta`( `pregunta`, `respuesta`, `idFunding`) VALUES (inPregunta,inRespuesta,inIdFunding)$$
@@ -142,7 +144,6 @@ INSERT INTO `comentario` (`id`, `comentario`, `idUsuario`, `idFunding`) VALUES
 (2, 'adssadsda', 2, 4),
 (3, '			asddassd', 2, 1),
 (4, '			dsadsa', 2, 1),
-(14, 'sdadsaas', 2, 16),
 (15, 'dsasdds', 2, 3),
 (16, 'dsasdds', 2, 3),
 (17, 'sdads', 2, 3),
@@ -161,17 +162,16 @@ CREATE TABLE `contribucion` (
   `nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `precio` int(11) NOT NULL,
   `descripcion` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `recompensa` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+  `recompensa` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idFunding` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `contribucion`
 --
 
-INSERT INTO `contribucion` (`id`, `nombre`, `precio`, `descripcion`, `recompensa`) VALUES
-(1, 'Contribución Base', 20, 'La contribución mínima.', 'Un enorme aprobado.'),
-(2, 'asdsda', 43, 'dsadsadsa', 'adsdsa'),
-(3, 'saddsasd', 1, 'sdadsa', 'sdadsa');
+INSERT INTO `contribucion` (`id`, `nombre`, `precio`, `descripcion`, `recompensa`, `idFunding`) VALUES
+(1, 'Base', 20, 'Base', 'Un enorme aprobado.', 1);
 
 -- --------------------------------------------------------
 
@@ -195,13 +195,12 @@ CREATE TABLE `crowdfunding` (
 --
 
 INSERT INTO `crowdfunding` (`id`, `nombre`, `descripcion`, `dineroR`, `dineroO`, `fechaFin`, `imagen`, `idUsuario`) VALUES
-(1, 'importante', 'descripcion de algo importante', 200, 400, '2020-04-22', 'aaa', 2),
-(2, 'secundario', 'descripcion de algo importante', 1, 333, '2020-04-23', '', 2),
-(3, 'secundario', 'descripcion de algo secundario', 200, 300, '0000-00-00', '', 2),
-(4, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', '', 2),
-(5, 'secundario', 'descripcion de algo secundario', 200, 300, '2020-04-30', '', 2),
-(6, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', '', 2),
-(16, 'dsadsdsad', 'asdsdasda', 0, 10, '2020-05-20', 'dsasdas', 2);
+(1, 'importante', 'descripcion de algo importante', 200, 400, '2020-04-22', 'absol.jpg', 2),
+(2, 'secundario', 'descripcion de algo importante', 1, 333, '2020-04-23', 'annie.jpg', 2),
+(3, 'secundario', 'descripcion de algo secundario', 200, 300, '0000-00-00', 'dj sona.jpg', 2),
+(4, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', 'farewell.jpg', 2),
+(5, 'secundario', 'descripcion de algo secundario', 200, 300, '2020-04-30', 'inkling.png', 2),
+(6, 'terciario', 'descripcion de algo terciario', 200, 300, '2020-04-01', 'xayah mate.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -227,7 +226,7 @@ CREATE TABLE `patrocinio` (
   `idFunding` int(11) NOT NULL,
   `idContribucion` int(11) NOT NULL,
   `CVV` int(3) NOT NULL,
-  `numero` int(16) NOT NULL,
+  `numero` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fechaCad` date NOT NULL,
   `titular` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -237,8 +236,13 @@ CREATE TABLE `patrocinio` (
 --
 
 INSERT INTO `patrocinio` (`id`, `idUsuario`, `idFunding`, `idContribucion`, `CVV`, `numero`, `fechaCad`, `titular`) VALUES
-(1, 2, 1, 1, 0, 0, '0000-00-00', ''),
-(2, 2, 1, 1, 0, 0, '0000-00-00', '');
+(6, 2, 1, 1, 423, '2147483647', '2020-05-29', 'sfd'),
+(7, 2, 1, 1, 234, '3435', '2020-05-28', 'sca'),
+(8, 2, 1, 1, 232, '3435', '2020-05-30', 'asd'),
+(9, 2, 1, 1, 234, '3435 345345 34534', '2020-05-29', 'Markel'),
+(10, 2, 1, 1, 543, '4534 3345 4453 3543', '2020-05-30', 'Markel'),
+(11, 2, 1, 1, 543, '4534 3345 4453 3543', '2020-05-31', 'Markel'),
+(12, 2, 1, 1, 343, '3435 345345 34534', '2020-05-21', 'jose');
 
 -- --------------------------------------------------------
 
@@ -306,8 +310,7 @@ INSERT INTO `voto` (`id`, `positivo`, `idUsuario`, `idFunding`) VALUES
 (2, 1, 2, 1),
 (4, 1, 2, 3),
 (21, 1, 2, 5),
-(22, -1, 2, 2),
-(32, 0, 2, 16);
+(22, -1, 2, 2);
 
 --
 -- Índices para tablas volcadas
@@ -332,7 +335,8 @@ ALTER TABLE `comentario`
 -- Indices de la tabla `contribucion`
 --
 ALTER TABLE `contribucion`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idFunding` (`idFunding`);
 
 --
 -- Indices de la tabla `crowdfunding`
@@ -398,13 +402,13 @@ ALTER TABLE `comentario`
 -- AUTO_INCREMENT de la tabla `contribucion`
 --
 ALTER TABLE `contribucion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `crowdfunding`
 --
 ALTER TABLE `crowdfunding`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `galeria`
@@ -416,7 +420,7 @@ ALTER TABLE `galeria`
 -- AUTO_INCREMENT de la tabla `patrocinio`
 --
 ALTER TABLE `patrocinio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `pregunta`
@@ -434,7 +438,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `voto`
 --
 ALTER TABLE `voto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- Restricciones para tablas volcadas
@@ -454,6 +458,12 @@ ALTER TABLE `comentario`
   ADD CONSTRAINT `comentario_ibfk_2` FOREIGN KEY (`idFunding`) REFERENCES `crowdfunding` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `contribucion`
+--
+ALTER TABLE `contribucion`
+  ADD CONSTRAINT `contribucion_ibfk_1` FOREIGN KEY (`idFunding`) REFERENCES `crowdfunding` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `crowdfunding`
 --
 ALTER TABLE `crowdfunding`
@@ -471,7 +481,7 @@ ALTER TABLE `galeria`
 ALTER TABLE `patrocinio`
   ADD CONSTRAINT `patrocinio_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `patrocinio_ibfk_2` FOREIGN KEY (`idFunding`) REFERENCES `crowdfunding` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `patrocinio_ibfk_3` FOREIGN KEY (`id`) REFERENCES `contribucion` (`id`);
+  ADD CONSTRAINT `patrocinio_ibfk_3` FOREIGN KEY (`idContribucion`) REFERENCES `contribucion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pregunta`

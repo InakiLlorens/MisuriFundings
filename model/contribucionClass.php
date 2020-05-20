@@ -5,6 +5,7 @@ class contribucionClass {
     protected $precio; //Coste de la contribución
     protected $descripcion; //Una breve descripción de la tarifa
     protected $recompensa; //Los elementos que ofrece la contribución
+    protected $idFunding;
     
     function getId() {
         return $this->id;
@@ -26,6 +27,10 @@ class contribucionClass {
         return $this->recompensa;
     }
     
+    function getIdFunding() {
+        return $this->idFunding;
+    }
+    
     function setId($id) {
         $this->id = $id;
     }
@@ -44,6 +49,10 @@ class contribucionClass {
     
     function setRecompensa($recompensa) {
         $this->recompensa = $recompensa;
+    }
+    
+    function setIdFunding($idFunding) {
+        $this->idFunding = $idFunding;
     }
     
     function getObjectVars() {

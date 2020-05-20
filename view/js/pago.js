@@ -21,7 +21,7 @@ $(function() {
 
         if ($.payform.validateCardNumber(cardNumber.val()) == false) {
             cardNumberField.addClass('has-error');
-        } else {
+        }else {
             cardNumberField.removeClass('has-error');
             cardNumberField.addClass('has-success');
         }
@@ -29,10 +29,10 @@ $(function() {
         if ($.payform.parseCardType(cardNumber.val()) == 'visa') {
             mastercard.addClass('transparent');
             amex.addClass('transparent');
-        } else if ($.payform.parseCardType(cardNumber.val()) == 'amex') {
+        }else if ($.payform.parseCardType(cardNumber.val()) == 'amex') {
             mastercard.addClass('transparent');
             visa.addClass('transparent');
-        } else if ($.payform.parseCardType(cardNumber.val()) == 'mastercard') {
+        }else if ($.payform.parseCardType(cardNumber.val()) == 'mastercard') {
             amex.addClass('transparent');
             visa.addClass('transparent');
         }

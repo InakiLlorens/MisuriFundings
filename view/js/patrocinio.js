@@ -2,30 +2,26 @@ $(document).ready(function () {
     $("#owner").on("keyup", check);
     $("#cvv").on("keyup", check);
     $("#cardNumber").on("keyup", check);
-    $("#mes").on("change", check);
-    $("#year").on("change", check);
+    $("#fechaCaducidad").on("change", check);
     
-
 	//---------------------------------------------------------//
     
     $("#insertPatrocinioButton").on("click", function() {
+        var owner=$("#owner").val();
+        var CVV=$("#cvv").val();
+        var number=$("#cardNumber").val();
+        var date=$("#fechaCaducidad").val();
 
-        var owner=$("#owner").on("keyup", check);
-        var CVV=$("#cvv").on("keyup", check);
-        var number=("#cardNumber").on("keyup", check);
-        var mes=$("#mes").on("change", check);
-        var year=$("#year").on("change", check);
     	$.ajax({
             url:'../controller/cInsertPatrocinio.php',
-            method: POST,
+            method: 'POST',
             data: {
-                owner: owner,
+                owner:owner,
                 CVV:CVV,
                 number:number,
-                month:mes,
-                year:year,
+                date:date
             },
-            success:function() {	
+            success:function(response) {	
             	alert("Pago realizado");
             	window.location = "vMain.html";
             },
@@ -44,10 +40,9 @@ function check() {
     var owner = $("#owner").val();
     var cvv = $("#cvv").val();
     var cardNumber = $("#cardNumber").val();
-    var mes = $("#mes").val();
-    var year = $("#year").val();
+    var date = $("#fechaCaducidad").val();
 
-    if(owner !== "" && cvv !== "" && cardNumber !== "" && mes !== "" && year !== "") {
+    if(owner !== "" && cvv !== "" && cardNumber !== "" && date !== "") {
         $("#insertPatrocinioButton").attr("disabled", false); 
     }else {
         $("#insertPatrocinioButton").attr("disabled", true);
