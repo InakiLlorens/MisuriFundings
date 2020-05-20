@@ -62,3 +62,9 @@
 .textoComentario{
     text-align: left;
 }
+.addPregunta{
+    margin: 10px;
+}
+#preguntaModal textarea{
+width: 100%;
+}

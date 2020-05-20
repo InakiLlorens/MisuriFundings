@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-05-2020 a las 16:32:23
+-- Tiempo de generación: 20-05-2020 a las 14:17:57
 -- Versión del servidor: 10.1.40-MariaDB
 -- Versión de PHP: 7.3.5
 
@@ -80,6 +80,9 @@ INSERT INTO `crowdfunding`(`nombre`, `descripcion`, `dineroO`, `fechaFin`, `imag
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertPatrocinio` (IN `inIdUsuario` INT(11), IN `inIdFunding` INT(11), IN `inIdContribucion` INT(11), IN `inCVV` INT(3), IN `inNumero` INT(16), IN `inFechaCad` DATE, IN `inTitular` VARCHAR(64))  NO SQL
 INSERT INTO `patrocinio`(`idUsuario`, `idFunding`, `idContribucion`, CVV, numero, fechaCad, titular) VALUES (inIdUsuario,inIdFunding,inIdContribucion, inCVV, inNumero, inFechaCad, inTitular)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertPregunta` (IN `inPregunta` VARCHAR(50), IN `inRespuesta` VARCHAR(250), IN `inIdFunding` INT)  NO SQL
+INSERT INTO `pregunta`( `pregunta`, `respuesta`, `idFunding`) VALUES (inPregunta,inRespuesta,inIdFunding)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertVoto` (IN `inPositivo` INT, IN `inIdUsuario` INT, IN `inIdFunding` INT)  NO SQL
 INSERT INTO `voto`(`positivo`, `idUsuario`, `idFunding`) VALUES (inPositivo,inIdUsuario,inIdFunding)$$
 
@@ -139,7 +142,13 @@ INSERT INTO `comentario` (`id`, `comentario`, `idUsuario`, `idFunding`) VALUES
 (2, 'adssadsda', 2, 4),
 (3, '			asddassd', 2, 1),
 (4, '			dsadsa', 2, 1),
-(14, 'sdadsaas', 2, 16);
+(14, 'sdadsaas', 2, 16),
+(15, 'dsasdds', 2, 3),
+(16, 'dsasdds', 2, 3),
+(17, 'sdads', 2, 3),
+(18, 'sadds', 2, 3),
+(19, '', 2, 3),
+(20, '', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -249,7 +258,9 @@ CREATE TABLE `pregunta` (
 --
 
 INSERT INTO `pregunta` (`id`, `pregunta`, `respuesta`, `idFunding`) VALUES
-(1, '¿Cuándo estará lista?', 'No lo se.', 4);
+(1, '¿Cuándo estará lista?', 'No lo se.', 4),
+(2, 'asddsa', 'dsadsadsa', 3),
+(3, 'asddsa', 'dsadsadsa', 3);
 
 -- --------------------------------------------------------
 
@@ -381,7 +392,7 @@ ALTER TABLE `actualizacion`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `contribucion`
@@ -411,7 +422,7 @@ ALTER TABLE `patrocinio`
 -- AUTO_INCREMENT de la tabla `pregunta`
 --
 ALTER TABLE `pregunta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

@@ -6,7 +6,7 @@ $idFunding = filter_input(INPUT_POST, "id");
 $text = filter_input(INPUT_POST, "text");
 
 $newComentario = new comentarioModel();
-echo $idFunding;
+
 $newComentario->setIdFunding($idFunding);
 $newComentario->setComentario($text);
 $newComentario->setIdUsuario($_SESSION["id"]);

@@ -89,5 +89,22 @@ class preguntaModel extends preguntaClass {
         mysqli_free_result($result);
         $this->CloseConnect();
     }
+    public function insertPregunta(){
+        $this->OpenConnect();
+        
+        $pregunta=$this->getPregunta();
+        $respuesta=$this->getRespuesta();
+        $idFunding=$this->getIdFunding();
+        
+        $sql = "call  spInsertPregunta('$pregunta', '$respuesta', $idFunding)";
+        echo $sql;
+        if ($this->link->query($sql)>=1) { // insert egiten da
+            return "El comentario se ha insertado con exito";
+        }else {
+            return "Fallï¿½ al insertar el comentario: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
 }
 ?>
