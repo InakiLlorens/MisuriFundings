@@ -13,6 +13,9 @@
     width: 70%;
     border-radius: 3px;
 }
+#actualizaciones .card{
+    margin: 10px 0;
+}
 .fundingData{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     width: 25%;
@@ -32,9 +35,12 @@ padding-top: 10px;
     padding: 5px;
 }
 .fundingMoreInfo{
-   
+   padding: 10px;
     background-color: white;
     width: 75%;
+}
+#actualizaciones h3{
+    color: rgb(12, 199, 199);
 }
 .fundingContributions{
     

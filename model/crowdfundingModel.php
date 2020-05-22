@@ -5,6 +5,7 @@ include_once 'votoModel.php';
 include_once 'preguntaModel.php';
 include_once 'comentarioModel.php';
 include_once 'contribucionModel.php';
+include_once 'actualizacionModel.php';
 
 class crowdfundingModel extends crowdfundingClass {
     private $link;
@@ -13,6 +14,7 @@ class crowdfundingModel extends crowdfundingClass {
     private $listPreguntas= array();
     private $listComentarios=array();
     private $listContribuciones=array();
+    private $listActualizaciones=array();
     private $objUsuario;
     //voto positivo = 1
     //voto negativo = 0
@@ -24,6 +26,22 @@ class crowdfundingModel extends crowdfundingClass {
     
     private $miPropiedad;
    
+    /**
+     * @return multitype:
+     */
+    public function getListActualizaciones()
+    {
+        return $this->listActualizaciones;
+    }
+
+    /**
+     * @param multitype: $listActualizaciones
+     */
+    public function setListActualizaciones($listActualizaciones)
+    {
+        $this->listActualizaciones = $listActualizaciones;
+    }
+
     /**
      * @return multitype:
      */
@@ -259,9 +277,15 @@ class crowdfundingModel extends crowdfundingClass {
             $newContribucion->setIdFunding($this->getId());
             $newContribucion->setListByIdFunding();
             
+            $newActualizacion = new actualizacionModel();
+            $newActualizacion->setIdFunding($this->getId());
+            $newActualizacion->setListByFundingId();
+            
+            
+            
+            
+            $this->setListActualizaciones($newActualizacion->getList());
             $this->setListContribuciones($newContribucion->getList());
-            
-            
             $this->setListVotos($newVotos->getList());
             $this->setListComentarios($newComentario->getList());
             $this->setListPreguntas($newPreguntas->getList());
@@ -280,6 +304,7 @@ class crowdfundingModel extends crowdfundingClass {
         $fechaFin=$this->getFechaFin();
         $imagen=$this->getImagen();
         $idUsuario=$this->getIdUsuario();
+        
         
         $sql = "call  spInsertFunding('$nombre', '$descripcion', $dineroO, '$fechaFin', '$imagen', $idUsuario)";
         
@@ -397,6 +422,14 @@ class crowdfundingModel extends crowdfundingClass {
             $varsContribuciones = $objectContribuciones->getObjectVars();
             array_push($arrContribuciones, $varsContribuciones);
         }
+        
+        $arrActualizaciones=array();
+        foreach($this->getListActualizaciones() as $objectActualizaciones){
+            $varsActualizaciones = $objectActualizaciones->getObjectVars();
+            array_push($arrActualizaciones, $varsActualizaciones);
+        }
+        
+        $vars["listActualizaciones"]=$arrActualizaciones;
         $vars["listContribuciones"]=$arrContribuciones;
         $vars["objUsuario"]=$this->getObjUsuario()->getObjectVars();
         $vars["listComentarios"]=$arrComentario;

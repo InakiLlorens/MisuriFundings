@@ -8,7 +8,7 @@ $( document ).ready(function() {
 			console.log(response)	
 			var porcentaje = (response.dineroR*100)/response.dineroO;
 			htmlzatia="<h1><span class='dineroR'><b>"+response.dineroR+"</b>€</span> recaudado</h1>";
-			htmlzatia+="<span class='dineroO'>de "+response.dineroO+"</span>";
+			htmlzatia+="<span class='dineroO'>de "+response.dineroO+" €</span>";
 			htmlzatia+=`<div class="progress">
 			<div class="progress-bar bg-success" role="progressbar" style="width: `+porcentaje+`%" aria-valuenow="`+porcentaje+`" aria-valuemin="0" aria-valuemax="100"></div>
 		  </div>`
@@ -25,6 +25,9 @@ $( document ).ready(function() {
 			</li>
 			<li class="nav-item" role="presentation">
 			  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#comentarios" role="tab" aria-controls="profile" aria-selected="false">Comentarios</a>
+			</li>
+			<li class="nav-item" role="presentation">
+			  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#actualizaciones" role="tab" aria-controls="profile" aria-selected="false">Actualizaciones</a>
 			</li>
 			
 		  </ul>
@@ -85,6 +88,36 @@ $( document ).ready(function() {
 				</div>`;
 				
 			}
+			
+
+
+
+
+
+
+			htmlPreguntas+='</div>';
+
+
+			htmlPreguntas+='<div class="tab-pane fade show" id="actualizaciones" role="tabpanel" aria-labelledby="home-tab">';
+			if (response.miPropiedad==true){
+				htmlPreguntas+='<button type="button" class="btn btn-primary">Añadir actualizacion</button>';
+			}
+		
+			for (let index = 0; index < response.listActualizaciones.length; index++) {
+				htmlPreguntas+=`<div class="card">
+				<div class="card-header">
+				  <h3>`+response.listActualizaciones[index].fecha+`</h3>
+				  <h4>`+response.listActualizaciones[index].nombre+`</h4>
+				</div>
+				<div class="card-body">
+				  <blockquote class="blockquote mb-0">
+					`+response.listActualizaciones[index].descripcion+`
+				  </blockquote>
+				</div>
+			  </div>`;
+				
+			}
+			htmlPreguntas+="</div>"
 			htmlContribuciones="<h3>Contribuciones</h3><hr>";
 			for (let index = 0; index < response.listContribuciones.length; index++) {
 				htmlContribuciones+=`<div class="card" style="width: 100%;">
@@ -101,7 +134,7 @@ $( document ).ready(function() {
 			}
 			$(".fundingContributions").html(htmlContribuciones);
 			
-			htmlPreguntas+='</div>';
+			
 			$(".fundingMoreInfo").html(htmlPreguntas);
 			cargarPago();
 			$("#enviarComentario").on("click", function(){
