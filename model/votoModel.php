@@ -108,9 +108,9 @@ class votoModel extends votoClass {
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
         
         
-        $this->CloseConnect();
-        
+        $this->CloseConnect();     
     }
+    
     public function insertVoto() {
         $positivo=$this->getPositivo();
         $idFunding=$this->getIdFunding();

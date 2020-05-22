@@ -312,6 +312,20 @@ class crowdfundingModel extends crowdfundingClass {
         $this->CloseConnect();
     }
     
+    public function deleteFunding() {
+        $this->OpenConnect();  //Abrir conexión
+        
+        $idFunding=$this->getIdFunding();
+        
+        $sql = "CALL spDeleteFunding ($idFunding)"; //Sentencia SQL
+        
+        echo $sql;
+        
+        $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
+                
+        $this->CloseConnect();
+    }
+    
     public function countVotes() {
         for ($i = 0; $i < sizeof($this->getList()); $i++) {
             $votosPositivos=0;
@@ -342,6 +356,7 @@ class crowdfundingModel extends crowdfundingClass {
                 $votosNegativos++;
             }
         }
+        
         $this->setVotosPositivos($votosPositivos);
         $this->setVotosNegativos($votosNegativos);
     }

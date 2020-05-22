@@ -19,4 +19,6 @@ $patrocinioModel->setFechaCad($date);
 $patrocinioModel->setTitular($owner);
 
 $patrocinioModel->insertPatrocinio();
+
+echo ($number);
 ?>
