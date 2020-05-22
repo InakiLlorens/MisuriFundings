@@ -19,8 +19,8 @@ $( document ).ready(function() {
 		$.ajax({
 			url: '../controller/cLogout.php',
 			success: function (response) {
-				console.log(response);
-				window.location.href = "";
+
+				window.location.href="../index.html";
 			},
 			error: function (xhr) {
 				alert("An error occured: " + xhr.status + " " + xhr.statusText);
