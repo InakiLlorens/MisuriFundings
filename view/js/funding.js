@@ -15,7 +15,7 @@ $( document ).ready(function() {
 		  htmlzatia+="<p>"+response.descripcion+"</p>"
 		  htmlzatia+="<span class='fechafin'>Fecha fin de los patrocinios: "+response.fechaFin+"</span>";
 			htmlzatia+=`<div class="card-body">
-					  		<a href="vPatrocinio.html" class="btn btn-primary botonPatrocinio" data-idcontribucion=`+ 1 + `>Contribuir</a>
+							 
 					  	</div>`;
 			$(".fundingData").html(htmlzatia);
 			$("#imgFunding").attr("src", "uploads/"+response.imagen);
@@ -46,12 +46,17 @@ $( document ).ready(function() {
 				
  				   <div class="card-header" id="headingTwo">
  				     <h2 class="mb-0">
- 				       <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-						<h3><b>`+response.listPreguntas[index].pregunta+`</b><h3>
- 				       </button>
- 				     </h2>
+ 				       <button class="btn btn-link btn-block text-left collapsed preguntaTitle" type="button" data-toggle="collapse" data-target="#pregunta`+index+`" aria-expanded="false" aria-controls="collapseTwo" >
+						<h3><b>`+response.listPreguntas[index].pregunta+`</b></h3>
+						</button>`;
+
+						if (response.miPropiedad == true){
+						htmlPreguntas+='<button type="button" class="btn btn-info editarPregunta" data-index="'+index+'">Editar</button>';
+							}
+						
+						htmlPreguntas += `</h2>
  				   </div>
- 				   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+ 				   <div id="pregunta`+index+`" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
  				     <div class="card-body">
 					 `+response.listPreguntas[index].respuesta+` 
 					  </div>
@@ -80,6 +85,21 @@ $( document ).ready(function() {
 				</div>`;
 				
 			}
+			htmlContribuciones="<h3>Contribuciones</h3><hr>";
+			for (let index = 0; index < response.listContribuciones.length; index++) {
+				htmlContribuciones+=`<div class="card" style="width: 100%;">
+				<div class="card-body">
+				
+				  <h4 class="card-title">`+response.listContribuciones[index].nombre+`</h4>
+				  <h5 class="card-subtitle mb-2 text-muted">`+response.listContribuciones[index].precio+` €</h5>
+				  <p class="card-text">`+response.listContribuciones[index].recompensa+`</p>
+				  <a href="vPatrocinio.html" class="btn btn-primary botonPatrocinio" data-idcontribucion=`+ 1 + `>Contribuir</a>
+				 
+				</div>
+			  </div>`;
+				
+			}
+			$(".fundingContributions").html(htmlContribuciones);
 			
 			htmlPreguntas+='</div>';
 			$(".fundingMoreInfo").html(htmlPreguntas);
@@ -130,6 +150,41 @@ $( document ).ready(function() {
 				alert("Rellena todos los campos!")
 			}
 			});
+
+			$(".editarPregunta").on("click", function(){
+				var index = $(this).data("index");
+				console.log(index);
+				if ($(this).hasClass("btn-info")){
+
+				$(this).html("Guardar cambios");
+				$(this).removeClass("btn-info");
+				$(this).addClass("btn-success");
+				$("#pregunta"+index+" .card-body").html('<textarea class="form-control">'+response.listPreguntas[index].respuesta+'</textarea>');
+				$(this).siblings("button").children("h3").html("<input type='text' class='form-control' value='"+response.listPreguntas[index].pregunta+"'>");
+				$(this).removeClass("editarPregunta");
+				$(this).addClass("sendChangePregunta");
+				}
+				else {
+					var index = $(this).data("index");
+					var respuesta= $("#pregunta"+index+" .card-body textarea").val();
+					var pregunta=$(this).siblings("button").children("h3").children("input").val()
+					console.log(index);
+					$(this).html("Editar");
+					$(this).addClass("btn-info");
+					$(this).removeClass("btn-success");
+					$("#pregunta"+index+" .card-body").html(respuesta);
+					$(this).siblings("button").children("h3").html("<b>"+pregunta+"</b>");
+					$(this).removeClass("sendChangePregunta");
+					$(this).addClass("editarPregunta");
+				}
+			
+				
+			
+			
+			});
+			
+
+
 	    },
 	    error: function(xhr) {
 	        alert("An error occured: " + xhr.status + " " + xhr.statusText);

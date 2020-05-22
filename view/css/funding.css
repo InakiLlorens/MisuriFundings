@@ -19,15 +19,31 @@
     border: 1px solid rgb(226, 226, 226);
     text-align: center;
 }
+.fundingBelowContent{
+display: flex;
+justify-content: space-between;
+margin:10px auto;
+width: 98%;
+padding-top: 10px;
+
+}
 .fundingData{
+    width: 28%;
     padding: 5px;
 }
 .fundingMoreInfo{
-    margin: auto;
-    padding: 10px;
-    margin-top: 10px;
+   
     background-color: white;
-    width: 98%;
+    width: 75%;
+}
+.fundingContributions{
+    
+    width: 23%;
+    padding:10px ;
+    background-color: white;
+}
+.fundingContributions .card{
+    margin-top: 10px;
 }
 .dineroO{
     color: gray;
@@ -55,6 +71,10 @@
     width: 100%;
     height: 100px;
 }
+.card-body textarea{
+    width: 100%;
+    height: 100%;
+}
 #enviarComentario{
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -67,4 +87,11 @@
 }
 #preguntaModal textarea{
 width: 100%;
+}
+.mb-0{
+    display: flex;
+    justify-content: space-between;
+}
+.editarPregunta{
+    transition: 1s;
 }

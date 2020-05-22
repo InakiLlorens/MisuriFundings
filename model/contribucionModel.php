@@ -18,6 +18,19 @@ class contribucionModel extends contribucionClass {
         $this->link->set_charset("utf8");
     }
     
+    /**
+     * @return multitype:
+     */
+    public function getList()
+    {
+        return $this->list;
+    }
+
+    /**
+     * @param multitype: $list
+     */
+  
+
     public function CloseConnect() {
         //mysqli_close ($this->link);
         
@@ -39,7 +52,8 @@ class contribucionModel extends contribucionClass {
             $contribucion->setNombre($row['nombre']);
             $contribucion->setPrecio($row['precio']);
             $contribucion->setDescripcion($row['descripcion']);
-            $contribucion->setRecompensas($row['recompensas']);
+            $contribucion->setRecompensa($row['recompensa']);
+            $contribucion->setIdFunding($row['idFunding']);
             
             array_push($this->list, $contribucion);
         }
@@ -64,6 +78,32 @@ class contribucionModel extends contribucionClass {
             return "Fallï¿½ al insertar la contribucion: (" . $this->link->errno . ") " . $this->link->error;
         }
         
+        $this->CloseConnect();
+    }
+    public function setListByIdFunding() {
+        $this->OpenConnect();  //Abrir conexión
+        $id=$this->getIdFunding();
+       
+        $sql = "CALL spFindContribucionById($id)"; //Sentencia SQL
+        
+        $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
+        
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            
+            $contribucion=new contribucionModel();
+            
+            $contribucion->setId($row['id']);
+            $contribucion->setNombre($row['nombre']);
+            $contribucion->setPrecio($row['precio']);
+            $contribucion->setDescripcion($row['descripcion']);
+            $contribucion->setRecompensa($row['recompensa']);
+            $contribucion->setIdFunding($row['idFunding']);
+            
+            
+            
+            array_push($this->list, $contribucion);
+        }
+        mysqli_free_result($result);
         $this->CloseConnect();
     }
 }

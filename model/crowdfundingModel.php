@@ -4,6 +4,7 @@ include_once 'crowdfundingClass.php';
 include_once 'votoModel.php';
 include_once 'preguntaModel.php';
 include_once 'comentarioModel.php';
+include_once 'contribucionModel.php';
 
 class crowdfundingModel extends crowdfundingClass {
     private $link;
@@ -11,6 +12,7 @@ class crowdfundingModel extends crowdfundingClass {
     private $listVotos= array();
     private $listPreguntas= array();
     private $listComentarios=array();
+    private $listContribuciones=array();
     private $objUsuario;
     //voto positivo = 1
     //voto negativo = 0
@@ -22,6 +24,22 @@ class crowdfundingModel extends crowdfundingClass {
     
     private $miPropiedad;
    
+    /**
+     * @return multitype:
+     */
+    public function getListContribuciones()
+    {
+        return $this->listContribuciones;
+    }
+
+    /**
+     * @param multitype: $listContribuciones
+     */
+    public function setListContribuciones($listContribuciones)
+    {
+        $this->listContribuciones = $listContribuciones;
+    }
+
     /**
      * @return mixed
      */
@@ -237,6 +255,13 @@ class crowdfundingModel extends crowdfundingClass {
             $newUsuario->setUserById();
             $this->setObjUsuario($newUsuario);
             
+            $newContribucion = new contribucionModel();
+            $newContribucion->setIdFunding($this->getId());
+            $newContribucion->setListByIdFunding();
+            
+            $this->setListContribuciones($newContribucion->getList());
+            
+            
             $this->setListVotos($newVotos->getList());
             $this->setListComentarios($newComentario->getList());
             $this->setListPreguntas($newPreguntas->getList());
@@ -366,6 +391,13 @@ class crowdfundingModel extends crowdfundingClass {
             $varsComentario["objUser"] = $objectComentario->getObjUser()->getObjectVars();
             array_push($arrComentario, $varsComentario);
         }
+        
+        $arrContribuciones=array();
+        foreach($this->getListContribuciones() as $objectContribuciones){
+            $varsContribuciones = $objectContribuciones->getObjectVars();
+            array_push($arrContribuciones, $varsContribuciones);
+        }
+        $vars["listContribuciones"]=$arrContribuciones;
         $vars["objUsuario"]=$this->getObjUsuario()->getObjectVars();
         $vars["listComentarios"]=$arrComentario;
         $vars["listPreguntas"]=$arrPreguntas;
