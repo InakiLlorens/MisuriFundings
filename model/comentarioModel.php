@@ -44,9 +44,11 @@ class comentarioModel extends comentarioClass {
             
             array_push($this->list, $comentario);
         }
+        
         mysqli_free_result($result);
         $this->CloseConnect();
     }
+    
     public function setListByIdFunding(){
         $this->OpenConnect();  //Abrir conexión
         $id = $this->getIdFunding();
@@ -67,11 +69,25 @@ class comentarioModel extends comentarioClass {
             $newUser->setId($comentario->getIdUsuario());
             $newUser->setUserById();
             $comentario->setObjUser($newUser);
-            
-            
+                       
             array_push($this->list, $comentario);
         }
+        
         mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
+    public function deleteComentario() {
+        $this->OpenConnect();  //Abrir conexión
+        
+        $idComentario=$this->getId();
+        
+        $sql = "CALL spDeleteComentario ($idComentario)"; //Sentencia SQL
+        
+        echo $sql;
+        
+        $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
+        
         $this->CloseConnect();
     }
     
@@ -95,8 +111,7 @@ class comentarioModel extends comentarioClass {
     /**
      * @param mixed $objUser
      */
-    public function setObjUser($objUser)
-    {
+    public function setObjUser($objUser) {
         $this->objUser = $objUser;
     }
 

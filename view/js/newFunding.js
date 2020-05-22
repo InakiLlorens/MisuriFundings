@@ -50,7 +50,7 @@ $(document).ready(function() {
 			                filename:filename,
 			                savedFileBase64: savedFileBase64
 			            },
-			            success:function(response){	            	
+			            success:function(response){
 			            	insertContribucion(nombreContribucion, precio, descripcionContribucion, recompensa);
 			            },
 			            error: function(xhr) {

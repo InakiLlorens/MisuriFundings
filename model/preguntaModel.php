@@ -63,10 +63,12 @@ class preguntaModel extends preguntaClass {
             
             array_push($this->list, $pregunta);
         }
+        
         mysqli_free_result($result);
         $this->CloseConnect();
     }
-    public function setListByFundingId(){
+    
+    public function setListByFundingId() {
         $this->OpenConnect();  //Abrir conexión
         $id = $this->getIdFunding();
         $sql = "CALL spPreguntasByFundingId($id)"; //Sentencia SQL
@@ -81,15 +83,15 @@ class preguntaModel extends preguntaClass {
             $pregunta->setPregunta($row['pregunta']);
             $pregunta->setRespuesta($row['respuesta']);
             $pregunta->setIdFunding($row['idFunding']);
-            
-            
-            
+    
             array_push($this->list, $pregunta);
         }
+        
         mysqli_free_result($result);
         $this->CloseConnect();
     }
-    public function insertPregunta(){
+    
+    public function insertPregunta() {
         $this->OpenConnect();
         
         $pregunta=$this->getPregunta();
@@ -104,6 +106,25 @@ class preguntaModel extends preguntaClass {
             return "Fallï¿½ al insertar el comentario: (" . $this->link->errno . ") " . $this->link->error;
         }
         
+        $this->CloseConnect();
+    }
+    
+    public function updatePregunta() {
+        $this->OpenConnect();
+        
+        $id=$this->getId();       
+        $pregunta=$this->getPregunta();
+        $respuesta=$this->getRespuesta();
+        $idFunding=$this->getIdFunding();
+
+        
+        $sql="call spUpdatePregunta($id,'$pregunta', '$respuesta', $idFunding)";
+        
+        if ($this->link->query($sql)>=1) { // aldatu egiten da
+            return "La pregunta se ha modificado con exito";
+        } else {
+            return "Fallo al modificar la pregunta: (" . $this->link->errno . ") " . $this->link->error;
+        }
         $this->CloseConnect();
     }
 }
