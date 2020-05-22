@@ -11,7 +11,7 @@ body {
 .mainCard {
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
-    height: 400px;
+    height: 600px;
 }
 
 .mainCard .voteContainer img {
@@ -22,6 +22,16 @@ body {
 .secondaryCard {
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
+}
+
+.mainCard img{
+width: 100%;
+height: 500px;
+}
+
+.secondaryCard img{
+width: 100%;
+height: 300px;
 }
 
 .container {

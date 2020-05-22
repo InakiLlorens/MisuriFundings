@@ -75,7 +75,7 @@ class usuarioModel extends usuarioClass {
         $this->OpenConnect();  //Abrir conexión
         $id=$this->getId();
         $sql = "CALL spUsuarioById($id)"; //Sentencia SQL
-        
+      
         $result = $this->link->query($sql); //Se guarda la información solicitada a la bbdd
 
         if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {

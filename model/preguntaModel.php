@@ -118,8 +118,8 @@ class preguntaModel extends preguntaClass {
         $idFunding=$this->getIdFunding();
 
         
-        $sql="call spUpdatePregunta($id,'$pregunta', '$respuesta', $idFunding)";
-        
+        $sql="call spUpdatePregunta($id,'$pregunta', '$respuesta')";
+        echo $sql;
         if ($this->link->query($sql)>=1) { // aldatu egiten da
             return "La pregunta se ha modificado con exito";
         } else {

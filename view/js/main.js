@@ -13,7 +13,7 @@ $(document).ready(function () {
 //----------------------FUNDING CON MAS VOTOS----------------------//
 						htmlzatia += `<div class="card mainCard" >
 					<div class="row no-gutters">
-					  <div class="col-md-4">
+					  <div class="col-md-8">
 						<img src="uploads/`+response[index].imagen+ `" class="card-img" alt="...">
 						<div class="voteContainer" data-idfunding=`+ response[index].id + `>`;
 						if (response[index].votado == 1) {
@@ -32,7 +32,7 @@ $(document).ready(function () {
 						htmlzatia += `
 					</div>
 					  </div>
-					  <div class="col-md-8">
+					  <div class="col-md-4">
 						<div class="card-body">
 						  <h5 class="card-title">`+ response[index].nombre + `</h5>
 						  <p class="card-text">`+ response[index].descripcion + `</p>

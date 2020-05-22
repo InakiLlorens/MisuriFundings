@@ -2,6 +2,7 @@
 include_once 'connect_data.php';
 include_once 'crowdfundingClass.php';
 include_once 'votoModel.php';
+include_once 'usuarioModel.php';
 include_once 'preguntaModel.php';
 include_once 'comentarioModel.php';
 include_once 'contribucionModel.php';
@@ -386,11 +387,12 @@ class crowdfundingModel extends crowdfundingClass {
         $this->setVotosNegativos($votosNegativos);
     }
     public function checkMyProperty($id){
+        
         if ($this->getObjUsuario()->getId()== $id){
             $this->setMiPropiedad(true);
         }
         else{
-            $this->setMiPropiedad(true);
+            $this->setMiPropiedad(false);
         }
     }
     

@@ -54,7 +54,7 @@ $( document ).ready(function() {
 						</button>`;
 
 						if (response.miPropiedad == true){
-						htmlPreguntas+='<button type="button" class="btn btn-info editarPregunta" data-index="'+index+'">Editar</button>';
+						htmlPreguntas+='<button type="button" class="btn btn-info editarPregunta" data-index="'+index+'" data-id='+response.listPreguntas[index].id+' >Editar</button>';
 							}
 						
 						htmlPreguntas += `</h2>
@@ -82,8 +82,13 @@ $( document ).ready(function() {
 				htmlPreguntas+=`<div class="comentario">
 				<h4>`+response.listComentarios[index].objUser.usuario+`</h3>
 				<p>`+response.listComentarios[index].comentario+`</p>
-				
-				<lr>
+				`;
+				if(response.miPropiedad==true){
+
+					htmlPreguntas+='<button type="button" class="btn btn-danger borrarComentario" data-id='+response.listComentarios[index].id+'>Borrar</button>';
+				}
+
+				htmlPreguntas+=`<lr>
 				
 				</div>`;
 				
@@ -126,7 +131,7 @@ $( document ).ready(function() {
 				  <h4 class="card-title">`+response.listContribuciones[index].nombre+`</h4>
 				  <h5 class="card-subtitle mb-2 text-muted">`+response.listContribuciones[index].precio+` €</h5>
 				  <p class="card-text">`+response.listContribuciones[index].recompensa+`</p>
-				  <a href="vPatrocinio.html" class="btn btn-primary botonPatrocinio" data-idcontribucion=`+ 1 + `>Contribuir</a>
+				  <a href="vPatrocinio.html" class="btn btn-primary botonPatrocinio" data-idcontribucion=`+ response.listContribuciones[index].id + `>Contribuir</a>
 				 
 				</div>
 			  </div>`;
@@ -199,6 +204,7 @@ $( document ).ready(function() {
 				}
 				else {
 					var index = $(this).data("index");
+					var id= $(this).data("id");
 					var respuesta= $("#pregunta"+index+" .card-body textarea").val();
 					var pregunta=$(this).siblings("button").children("h3").children("input").val()
 					console.log(index);
@@ -209,11 +215,43 @@ $( document ).ready(function() {
 					$(this).siblings("button").children("h3").html("<b>"+pregunta+"</b>");
 					$(this).removeClass("sendChangePregunta");
 					$(this).addClass("editarPregunta");
+
+					$.ajax({
+						url: '../controller/cUpdatePregunta.php',
+						method: 'POST',
+						data: { id: id, pregunta: pregunta, respuesta: respuesta },
+						success: function (response) {
+							console.log(response);
+							
+						},
+						error: function (xhr) {
+							alert("An error occured: " + xhr.status + " " + xhr.statusText);
+						}
+					});
+
+
 				}
 			
 				
 			
 			
+			});
+			$(".borrarComentario").on("click",function(){
+				var id= $(this).data("id");
+			
+				$(this).parent().remove();
+				$.ajax({
+					url: '../controller/cDeleteComent.php',
+					method: 'POST',
+					data: { id: id},
+					success: function (response) {
+						console.log(response);
+						
+					},
+					error: function (xhr) {
+						alert("An error occured: " + xhr.status + " " + xhr.statusText);
+					}
+				})
 			});
 			
 
